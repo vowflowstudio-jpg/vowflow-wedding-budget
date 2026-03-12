@@ -1,3 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fdf6f0"/>
+      <stop offset="50%" style="stop-color:#f5e6e8"/>
+      <stop offset="100%" style="stop-color:#e8d5d8"/>
+    </linearGradient>
+    <linearGradient id="petal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8c5c9;stop-opacity:0.6"/>
+      <stop offset="100%" style="stop-color:#d4a8ad;stop-opacity:0.3"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="600" fill="url(#bg)"/>
+  <!-- Large soft rose top right -->
+  <g transform="translate(900, 80)" opacity="0.5">
+    <ellipse cx="0" cy="0" rx="80" ry="40" fill="#e8c5c9" transform="rotate(0)"/>
+    <ellipse cx="0" cy="0" rx="80" ry="40" fill="#ddb8bc" transform="rotate(40)"/>
+    <ellipse cx="0" cy="0" rx="80" ry="40" fill="#e8c5c9" transform="rotate(80)"/>
+    <ellipse cx="0" cy="0" rx="80" ry="40" fill="#d4a8ad" transform="rotate(120)"/>
+    <ellipse cx="0" cy="0" rx="80" ry="40" fill="#e8c5c9" transform="rotate(160)"/>
+    <circle cx="0" cy="0" r="22" fill="#c9a0a5"/>
+  </g>
+  <!-- Medium rose bottom right -->
+  <g transform="translate(1050, 380)" opacity="0.35">
+    <ellipse cx="0" cy="0" rx="55" ry="28" fill="#e8c5c9" transform="rotate(20)"/>
+    <ellipse cx="0" cy="0" rx="55" ry="28" fill="#ddb8bc" transform="rotate(60)"/>
+    <ellipse cx="0" cy="0" rx="55" ry="28" fill="#e8c5c9" transform="rotate(100)"/>
+    <ellipse cx="0" cy="0" rx="55" ry="28" fill="#d4a8ad" transform="rotate(140)"/>
+    <circle cx="0" cy="0" r="15" fill="#c9a0a5"/>
+  </g>
+  <!-- Small rose top right corner -->
+  <g transform="translate(1150, 50)" opacity="0.3">
+    <ellipse cx="0" cy="0" rx="35" ry="18" fill="#e8c5c9" transform="rotate(10)"/>
+    <ellipse cx="0" cy="0" rx="35" ry="18" fill="#ddb8bc" transform="rotate(50)"/>
+    <ellipse cx="0" cy="0" rx="35" ry="18" fill="#e8c5c9" transform="rotate(90)"/>
+    <circle cx="0" cy="0" r="10" fill="#c9a0a5"/>
+  </g>
+  <!-- Leaves -->
+  <ellipse cx="820" cy="120" rx="45" ry="18" fill="#b5c9b8" opacity="0.4" transform="rotate(-30, 820, 120)"/>
+  <ellipse cx="970" cy="200" rx="38" ry="15" fill="#9ab09e" opacity="0.35" transform="rotate(20, 970, 200)"/>
+  <ellipse cx="1100" cy="300" rx="42" ry="16" fill="#b5c9b8" opacity="0.3" transform="rotate(-45, 1100, 300)"/>
+  <ellipse cx="1150" cy="150" rx="30" ry="12" fill="#9ab09e" opacity="0.3" transform="rotate(60, 1150, 150)"/>
+  <!-- Small scattered petals -->
+  <ellipse cx="750" cy="180" rx="18" ry="9" fill="#e8c5c9" opacity="0.4" transform="rotate(15, 750, 180)"/>
+  <ellipse cx="850" cy="320" rx="14" ry="7" fill="#ddb8bc" opacity="0.35" transform="rotate(-20, 850, 320)"/>
+  <ellipse cx="1000" cy="450" rx="20" ry="10" fill="#e8c5c9" opacity="0.3" transform="rotate(35, 1000, 450)"/>
+  <!-- Gold dots -->
+  <circle cx="800" cy="250" r="4" fill="#c9a84c" opacity="0.4"/>
+  <circle cx="920" cy="150" r="3" fill="#c9a84c" opacity="0.35"/>
+  <circle cx="1080" cy="350" r="5" fill="#c9a84c" opacity="0.3"/>
+  <circle cx="760" cy="400" r="3" fill="#c9a84c" opacity="0.25"/>
+</svg>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -106,10 +158,8 @@
   */
   .hero-bg {
     position: absolute; inset: 0;
-    background: linear-gradient(135deg,
-      #f9ede8 0%, #f0ddd8 30%, #e8d5d8 60%, #d4b8bc 100%);
-    /* REPLACE WITH: background-image: url('hero-wedding-flatlay.jpg');
-       background-size: cover; background-position: center; */
+    background-image: url('hero.svg');
+    background-size: cover; background-position: center right;
   }
   .hero-bg::after {
     content: '';
@@ -1106,7 +1156,9 @@
 
     <div class="vendor-grid">
       <!-- 📸 IMAGE INSTRUCTION #3: Replace this div with your photo -->
-      <div class="vendor-image-placeholder">📋</div>
+      <div class="vendor-image-placeholder" style="padding:0;overflow:hidden;">
+      <img src="vendor.svg" alt="Wedding planning notebook and checklist" style="width:100%;height:100%;object-fit:cover;">
+    </div>
 
       <div>
         <div class="booking-timeline">
@@ -1232,7 +1284,9 @@
     <div class="products-grid">
       <div class="product-card">
         <!-- 📸 Replace .product-img with product image -->
-        <div class="product-img p1">🧺</div>
+        <div class="product-img p1" style="padding:0;overflow:hidden;">
+          <img src="product-1.svg" alt="Wedding welcome bag supplies" style="width:100%;height:100%;object-fit:cover;">
+        </div>
         <div class="product-body">
           <div class="product-label">Guest Experience</div>
           <h3>Welcome Bag Supplies</h3>
@@ -1243,7 +1297,9 @@
 
       <div class="product-card">
         <!-- 📸 Replace .product-img with product image -->
-        <div class="product-img p2">🪥</div>
+        <div class="product-img p2" style="padding:0;overflow:hidden;">
+          <img src="product-2.svg" alt="Bathroom basket essentials" style="width:100%;height:100%;object-fit:cover;">
+        </div>
         <div class="product-body">
           <div class="product-label">Guest Comfort</div>
           <h3>Bathroom Basket Essentials</h3>
@@ -1254,7 +1310,9 @@
 
       <div class="product-card">
         <!-- 📸 Replace .product-img with product image -->
-        <div class="product-img p3">🚨</div>
+        <div class="product-img p3" style="padding:0;overflow:hidden;">
+          <img src="product-3.svg" alt="Wedding emergency kit" style="width:100%;height:100%;object-fit:cover;">
+        </div>
         <div class="product-body">
           <div class="product-label">Day-of Essentials</div>
           <h3>Wedding Emergency Kit</h3>
@@ -1296,7 +1354,9 @@
     <div class="related-grid">
       <a class="related-card" href="https://sites.google.com/view/vowflowstudio-welcome-bags/home">
         <!-- 📸 Replace .related-img with photo -->
-        <div class="related-img rc1">🧺</div>
+        <div class="related-img rc1" style="padding:0;overflow:hidden;">
+          <img src="related-1.svg" alt="Wedding welcome bags" style="width:100%;height:100%;object-fit:cover;">
+        </div>
         <div class="related-body">
           <div class="label">Guest Experience</div>
           <h3>Wedding Welcome Bag Guide</h3>
@@ -1305,7 +1365,9 @@
       </a>
       <a class="related-card" href="https://sites.google.com/view/weddingbathroombasketessential/home">
         <!-- 📸 Replace .related-img with photo -->
-        <div class="related-img rc2">🪥</div>
+        <div class="related-img rc2" style="padding:0;overflow:hidden;">
+          <img src="related-2.svg" alt="Bathroom basket" style="width:100%;height:100%;object-fit:cover;">
+        </div>
         <div class="related-body">
           <div class="label">Guest Comfort</div>
           <h3>Bathroom Basket Essentials</h3>
@@ -1314,7 +1376,9 @@
       </a>
       <a class="related-card" href="https://sites.google.com/view/wedding-day-essentials/home">
         <!-- 📸 Replace .related-img with photo -->
-        <div class="related-img rc3">📋</div>
+        <div class="related-img rc3" style="padding:0;overflow:hidden;">
+          <img src="related-3.svg" alt="Wedding day essentials" style="width:100%;height:100%;object-fit:cover;">
+        </div>
         <div class="related-body">
           <div class="label">Day-of Planning</div>
           <h3>Wedding Day Essentials</h3>
@@ -1341,3 +1405,284 @@
 
 </body>
 </html>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" width="400" height="200">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fdf6f0"/>
+      <stop offset="100%" style="stop-color:#f5e6e8"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="200" fill="url(#bg3)"/>
+  <!-- Kraft bag -->
+  <rect x="130" y="50" width="90" height="110" rx="3" fill="#c8a882" stroke="#b8956e" stroke-width="1.5"
+        filter="drop-shadow(0 3px 10px rgba(0,0,0,0.15))"/>
+  <!-- Bag fold top -->
+  <rect x="130" y="50" width="90" height="18" rx="3" fill="#b8956e"/>
+  <!-- Bag handle left -->
+  <path d="M152,50 Q148,28 158,25 Q168,22 165,50" fill="none" stroke="#8b6914" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Bag handle right -->
+  <path d="M178,50 Q174,28 184,25 Q194,22 191,50" fill="none" stroke="#8b6914" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Tissue paper peek -->
+  <path d="M135,55 Q155,45 175,55 Q195,45 215,55" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+  <!-- Tag -->
+  <rect x="192" y="75" width="32" height="20" rx="2" fill="white" stroke="#e8d5d8" stroke-width="1"/>
+  <circle cx="194" cy="85" r="2" fill="#e8d5d8"/>
+  <line x1="194" y1="85" x2="192" y2="85" stroke="#e8d5d8" stroke-width="1"/>
+  <text x="198" y="89" font-family="Georgia,serif" font-size="7" fill="#b5838d">VowFlow</text>
+  <!-- Small items peeking from bag -->
+  <rect x="148" y="58" width="18" height="8" rx="2" fill="#d4e8d0" opacity="0.9"/>
+  <rect x="170" y="58" width="22" height="8" rx="2" fill="#ffd6a5" opacity="0.9"/>
+  <!-- Rose decoration left -->
+  <g transform="translate(70, 110)" opacity="0.55">
+    <ellipse cx="0" cy="0" rx="28" ry="14" fill="#e8c5c9" transform="rotate(0)"/>
+    <ellipse cx="0" cy="0" rx="28" ry="14" fill="#ddb8bc" transform="rotate(45)"/>
+    <ellipse cx="0" cy="0" rx="28" ry="14" fill="#e8c5c9" transform="rotate(90)"/>
+    <ellipse cx="0" cy="0" rx="28" ry="14" fill="#d4a8ad" transform="rotate(135)"/>
+    <circle cx="0" cy="0" r="8" fill="#c9a0a5"/>
+  </g>
+  <ellipse cx="45" cy="125" rx="24" ry="10" fill="#b5c9b8" opacity="0.5" transform="rotate(-20,45,125)"/>
+  <!-- Rose decoration right -->
+  <g transform="translate(335, 90)" opacity="0.45">
+    <ellipse cx="0" cy="0" rx="22" ry="11" fill="#e8c5c9" transform="rotate(20)"/>
+    <ellipse cx="0" cy="0" rx="22" ry="11" fill="#ddb8bc" transform="rotate(65)"/>
+    <ellipse cx="0" cy="0" rx="22" ry="11" fill="#e8c5c9" transform="rotate(110)"/>
+    <circle cx="0" cy="0" r="6" fill="#c9a0a5"/>
+  </g>
+  <!-- Gold dots scatter -->
+  <circle cx="100" cy="60" r="3" fill="#c9a84c" opacity="0.4"/>
+  <circle cx="300" cy="150" r="2.5" fill="#c9a84c" opacity="0.35"/>
+  <circle cx="350" cy="55" r="2" fill="#c9a84c" opacity="0.3"/>
+</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" width="400" height="200">
+  <defs>
+    <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ebf2ed"/>
+      <stop offset="100%" style="stop-color:#d4e6d9"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="200" fill="url(#bg4)"/>
+  <!-- Wicker basket -->
+  <ellipse cx="200" cy="155" rx="70" ry="12" fill="#c8a882" opacity="0.5"/>
+  <rect x="135" y="85" width="130" height="72" rx="8" fill="#d4b896" stroke="#c8a882" stroke-width="1.5"
+        filter="drop-shadow(0 4px 12px rgba(0,0,0,0.12))"/>
+  <!-- Basket weave lines horizontal -->
+  <line x1="138" y1="103" x2="262" y2="103" stroke="#c8a882" stroke-width="1" opacity="0.6"/>
+  <line x1="138" y1="120" x2="262" y2="120" stroke="#c8a882" stroke-width="1" opacity="0.6"/>
+  <line x1="138" y1="137" x2="262" y2="137" stroke="#c8a882" stroke-width="1" opacity="0.6"/>
+  <!-- Basket weave vertical -->
+  <line x1="160" y1="85" x2="160" y2="157" stroke="#c8a882" stroke-width="1" opacity="0.4"/>
+  <line x1="183" y1="85" x2="183" y2="157" stroke="#c8a882" stroke-width="1" opacity="0.4"/>
+  <line x1="206" y1="85" x2="206" y2="157" stroke="#c8a882" stroke-width="1" opacity="0.4"/>
+  <line x1="229" y1="85" x2="229" y2="157" stroke="#c8a882" stroke-width="1" opacity="0.4"/>
+  <!-- Handle -->
+  <path d="M165,85 Q200,55 235,85" fill="none" stroke="#b8956e" stroke-width="3" stroke-linecap="round"/>
+  <!-- Items in basket -->
+  <!-- Mint tin -->
+  <rect x="148" y="70" width="28" height="18" rx="3" fill="#7EC8A4" stroke="#5aad88" stroke-width="1"/>
+  <text x="153" y="82" font-family="Arial" font-size="7" fill="white" font-weight="bold">MINTS</text>
+  <!-- Stain remover -->
+  <rect x="183" y="65" width="16" height="24" rx="3" fill="white" stroke="#e8d5d8" stroke-width="1"/>
+  <rect x="183" y="65" width="16" height="8" rx="3" fill="#b5838d"/>
+  <!-- Hair tie coil -->
+  <circle cx="222" cy="77" r="10" fill="none" stroke="#e8c5c9" stroke-width="3"/>
+  <circle cx="222" cy="77" r="5" fill="#e8c5c9" opacity="0.5"/>
+  <!-- Sage leaves -->
+  <ellipse cx="100" cy="100" rx="32" ry="13" fill="#7a9e87" opacity="0.4" transform="rotate(-15,100,100)"/>
+  <ellipse cx="80" cy="120" rx="26" ry="10" fill="#9ab09e" opacity="0.35" transform="rotate(10,80,120)"/>
+  <ellipse cx="300" cy="140" rx="28" ry="11" fill="#7a9e87" opacity="0.4" transform="rotate(20,300,140)"/>
+  <!-- Small rose -->
+  <g transform="translate(330, 80)" opacity="0.5">
+    <ellipse cx="0" cy="0" rx="22" ry="11" fill="#e8c5c9" transform="rotate(0)"/>
+    <ellipse cx="0" cy="0" rx="22" ry="11" fill="#ddb8bc" transform="rotate(45)"/>
+    <ellipse cx="0" cy="0" rx="22" ry="11" fill="#e8c5c9" transform="rotate(90)"/>
+    <circle cx="0" cy="0" r="7" fill="#c9a0a5"/>
+  </g>
+  <circle cx="310" cy="55" r="3" fill="#c9a84c" opacity="0.4"/>
+  <circle cx="75" cy="65" r="2.5" fill="#c9a84c" opacity="0.35"/>
+</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" width="400" height="200">
+  <defs>
+    <linearGradient id="bg5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fff8e7"/>
+      <stop offset="100%" style="stop-color:#f5edd6"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="200" fill="url(#bg5)"/>
+  <!-- Small clutch bag -->
+  <rect x="130" y="60" width="130" height="90" rx="8"
+        fill="white" stroke="#e8d5d8" stroke-width="1.5"
+        filter="drop-shadow(0 4px 14px rgba(109,59,71,0.12))"/>
+  <!-- Bag clasp -->
+  <rect x="182" y="56" width="36" height="10" rx="5" fill="#c9a84c" stroke="#b8942e" stroke-width="1"/>
+  <circle cx="200" cy="61" r="4" fill="#b8942e"/>
+  <!-- Cross symbol -->
+  <rect x="190" y="78" width="20" height="6" rx="2" fill="#e8c5c9"/>
+  <rect x="196" y="72" width="8" height="18" rx="2" fill="#e8c5c9"/>
+  <!-- Contents label -->
+  <text x="155" y="115" font-family="Georgia,serif" font-size="9" fill="#b5838d" font-style="italic">Emergency Kit</text>
+  <!-- Small items -->
+  <rect x="148" y="122" width="22" height="12" rx="2" fill="#f0f0f0" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="151" y="131" font-family="Arial" font-size="6" fill="#888">tape</text>
+  <rect x="176" y="122" width="28" height="12" rx="2" fill="#e8f4e8" stroke="#c8e0c8" stroke-width="1"/>
+  <text x="179" y="131" font-family="Arial" font-size="6" fill="#666">patches</text>
+  <rect x="210" y="122" width="24" height="12" rx="2" fill="#fff0e8" stroke="#f0d8c0" stroke-width="1"/>
+  <text x="212" y="131" font-family="Arial" font-size="6" fill="#888">sewing</text>
+  <!-- Gold star accents -->
+  <text x="58" y="90" font-size="18" fill="#c9a84c" opacity="0.4">✦</text>
+  <text x="330" y="130" font-size="14" fill="#c9a84c" opacity="0.35">✦</text>
+  <text x="85" y="155" font-size="10" fill="#c9a84c" opacity="0.3">✦</text>
+  <!-- Rose decoration -->
+  <g transform="translate(65, 115)" opacity="0.5">
+    <ellipse cx="0" cy="0" rx="26" ry="13" fill="#e8c5c9" transform="rotate(0)"/>
+    <ellipse cx="0" cy="0" rx="26" ry="13" fill="#ddb8bc" transform="rotate(45)"/>
+    <ellipse cx="0" cy="0" rx="26" ry="13" fill="#e8c5c9" transform="rotate(90)"/>
+    <ellipse cx="0" cy="0" rx="26" ry="13" fill="#d4a8ad" transform="rotate(135)"/>
+    <circle cx="0" cy="0" r="7" fill="#c9a0a5"/>
+  </g>
+  <ellipse cx="42" cy="128" rx="22" ry="9" fill="#b5c9b8" opacity="0.45" transform="rotate(-20,42,128)"/>
+  <g transform="translate(340, 75)" opacity="0.4">
+    <ellipse cx="0" cy="0" rx="20" ry="10" fill="#e8c5c9" transform="rotate(15)"/>
+    <ellipse cx="0" cy="0" rx="20" ry="10" fill="#ddb8bc" transform="rotate(60)"/>
+    <ellipse cx="0" cy="0" rx="20" ry="10" fill="#e8c5c9" transform="rotate(105)"/>
+    <circle cx="0" cy="0" r="6" fill="#c9a0a5"/>
+  </g>
+</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 170" width="400" height="170">
+  <defs>
+    <linearGradient id="rbg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fdf6f0"/>
+      <stop offset="100%" style="stop-color:#f5e6e8"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="170" fill="url(#rbg)"/>
+  
+  <g transform="translate(200,85)">
+    <rect x="-45" y="-40" width="90" height="80" rx="3" fill="white" opacity="0.7" stroke="#e8d5d8" stroke-width="1"/>
+    <rect x="-45" y="-40" width="90" height="16" rx="3" fill="#b5838d" opacity="0.8"/>
+    <path d="M-20,-40 Q-24,-58 -16,-61 Q-8,-64 -10,-40" fill="none" stroke="#8b6040" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+    <path d="M10,-40 Q6,-58 14,-61 Q22,-64 20,-40" fill="none" stroke="#8b6040" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+  </g>
+  <g transform="translate(80,85)" opacity="0.45">
+    <ellipse cx="0" cy="0" rx="25" ry="13" fill="#e8c5c9" transform="rotate(0)"/>
+    <ellipse cx="0" cy="0" rx="25" ry="13" fill="#ddb8bc" transform="rotate(60)"/>
+    <ellipse cx="0" cy="0" rx="25" ry="13" fill="#e8c5c9" transform="rotate(120)"/>
+    <circle cx="0" cy="0" r="7" fill="#c9a0a5"/>
+  </g>
+  <ellipse cx="320" cy="120" rx="30" ry="12" fill="#b5c9b8" opacity="0.4" transform="rotate(20,320,120)"/>
+  <circle cx="320" cy="45" r="3" fill="#c9a84c" opacity="0.4"/>
+  <circle cx="75" cy="140" r="2.5" fill="#c9a84c" opacity="0.35"/>
+</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 170" width="400" height="170">
+  <defs>
+    <linearGradient id="rbg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ebf2ed"/>
+      <stop offset="100%" style="stop-color:#d4e6d9"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="170" fill="url(#rbg)"/>
+  
+  <g transform="translate(200,88)">
+    <rect x="-50" y="-38" width="100" height="56" rx="6" fill="#d4b896" opacity="0.8" stroke="#c8a882" stroke-width="1.5"/>
+    <line x1="-45" y1="-22" x2="45" y2="-22" stroke="#c8a882" stroke-width="1" opacity="0.6"/>
+    <line x1="-45" y1="-8" x2="45" y2="-8" stroke="#c8a882" stroke-width="1" opacity="0.6"/>
+    <line x1="-45" y1="6" x2="45" y2="6" stroke="#c8a882" stroke-width="1" opacity="0.6"/>
+    <path d="M-28,-38 Q-32,-55 -22,-58 Q-12,-61 -14,-38" fill="none" stroke="#b8956e" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M14,-38 Q10,-55 20,-58 Q30,-61 28,-38" fill="none" stroke="#b8956e" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  <ellipse cx="85" cy="95" rx="28" ry="11" fill="#7a9e87" opacity="0.4" transform="rotate(-15,85,95)"/>
+  <ellipse cx="320" cy="110" rx="24" ry="10" fill="#9ab09e" opacity="0.35" transform="rotate(20,320,110)"/>
+  <g transform="translate(320,55)" opacity="0.45">
+    <ellipse cx="0" cy="0" rx="20" ry="10" fill="#e8c5c9" transform="rotate(0)"/>
+    <ellipse cx="0" cy="0" rx="20" ry="10" fill="#ddb8bc" transform="rotate(60)"/>
+    <ellipse cx="0" cy="0" rx="20" ry="10" fill="#e8c5c9" transform="rotate(120)"/>
+    <circle cx="0" cy="0" r="6" fill="#c9a0a5"/>
+  </g>
+</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 170" width="400" height="170">
+  <defs>
+    <linearGradient id="rbg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fff8e7"/>
+      <stop offset="100%" style="stop-color:#f5edd6"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="170" fill="url(#rbg)"/>
+  
+  <g transform="translate(200,85)">
+    <rect x="-50" y="-42" width="100" height="72" rx="6" fill="white" opacity="0.75" stroke="#e8d5d8" stroke-width="1.5"/>
+    <rect x="-28" y="-52" width="56" height="14" rx="4" fill="#c9a84c" opacity="0.8" stroke="#b8942e" stroke-width="1"/>
+    <rect x="-16" y="-16" width="32" height="9" rx="2" fill="#e8c5c9" opacity="0.9"/>
+    <rect x="-9" y="-26" width="18" height="28" rx="2" fill="#e8c5c9" opacity="0.9"/>
+  </g>
+  <text x="68" y="75" font-size="16" fill="#c9a84c" opacity="0.45">✦</text>
+  <text x="318" y="120" font-size="13" fill="#c9a84c" opacity="0.4">✦</text>
+  <g transform="translate(78,115)" opacity="0.45">
+    <ellipse cx="0" cy="0" rx="24" ry="12" fill="#e8c5c9" transform="rotate(0)"/>
+    <ellipse cx="0" cy="0" rx="24" ry="12" fill="#ddb8bc" transform="rotate(60)"/>
+    <ellipse cx="0" cy="0" rx="24" ry="12" fill="#e8c5c9" transform="rotate(120)"/>
+    <circle cx="0" cy="0" r="7" fill="#c9a0a5"/>
+  </g>
+  <ellipse cx="325" cy="60" rx="26" ry="10" fill="#b5c9b8" opacity="0.4" transform="rotate(-25,325,60)"/>
+</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 420" width="500" height="420">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fdf6f0"/>
+      <stop offset="100%" style="stop-color:#f0e0e3"/>
+    </linearGradient>
+  </defs>
+  <rect width="500" height="420" fill="url(#bg2)"/>
+  <!-- Notebook -->
+  <rect x="80" y="60" width="240" height="300" rx="4" fill="white" stroke="#e8d5d8" stroke-width="1.5"
+        filter="drop-shadow(0 4px 16px rgba(109,59,71,0.12))"/>
+  <!-- Spine -->
+  <rect x="80" y="60" width="24" height="300" rx="4" fill="#b5838d"/>
+  <!-- Spiral dots -->
+  <circle cx="92" cy="90" r="5" fill="white" stroke="#e8d5d8" stroke-width="1"/>
+  <circle cx="92" cy="115" r="5" fill="white" stroke="#e8d5d8" stroke-width="1"/>
+  <circle cx="92" cy="140" r="5" fill="white" stroke="#e8d5d8" stroke-width="1"/>
+  <circle cx="92" cy="165" r="5" fill="white" stroke="#e8d5d8" stroke-width="1"/>
+  <circle cx="92" cy="190" r="5" fill="white" stroke="#e8d5d8" stroke-width="1"/>
+  <circle cx="92" cy="215" r="5" fill="white" stroke="#e8d5d8" stroke-width="1"/>
+  <circle cx="92" cy="240" r="5" fill="white" stroke="#e8d5d8" stroke-width="1"/>
+  <circle cx="92" cy="265" r="5" fill="white" stroke="#e8d5d8" stroke-width="1"/>
+  <circle cx="92" cy="290" r="5" fill="white" stroke="#e8d5d8" stroke-width="1"/>
+  <circle cx="92" cy="315" r="5" fill="white" stroke="#e8d5d8" stroke-width="1"/>
+  <!-- Page content -->
+  <text x="120" y="100" font-family="Georgia,serif" font-size="13" fill="#6d3b47" font-style="italic">Wedding Planning</text>
+  <!-- Checklist lines -->
+  <rect x="120" y="118" width="12" height="12" rx="2" fill="none" stroke="#b5838d" stroke-width="1.5"/>
+  <line x1="140" y1="124" x2="270" y2="124" stroke="#e8d5d8" stroke-width="1.5" stroke-linecap="round"/>
+  <rect x="120" y="142" width="12" height="12" rx="2" fill="#b5838d" stroke="#b5838d" stroke-width="1.5"/>
+  <polyline points="122,148 125,152 132,144" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="140" y1="148" x2="255" y2="148" stroke="#e8d5d8" stroke-width="1.5" stroke-linecap="round"/>
+  <rect x="120" y="166" width="12" height="12" rx="2" fill="#b5838d" stroke="#b5838d" stroke-width="1.5"/>
+  <polyline points="122,172 125,176 132,168" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="140" y1="172" x2="280" y2="172" stroke="#e8d5d8" stroke-width="1.5" stroke-linecap="round"/>
+  <rect x="120" y="190" width="12" height="12" rx="2" fill="none" stroke="#b5838d" stroke-width="1.5"/>
+  <line x1="140" y1="196" x2="260" y2="196" stroke="#e8d5d8" stroke-width="1.5" stroke-linecap="round"/>
+  <rect x="120" y="214" width="12" height="12" rx="2" fill="none" stroke="#b5838d" stroke-width="1.5"/>
+  <line x1="140" y1="220" x2="275" y2="220" stroke="#e8d5d8" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Budget note -->
+  <rect x="120" y="248" width="160" height="70" rx="3" fill="#fff8e7" stroke="#c9a84c" stroke-width="1"/>
+  <text x="130" y="265" font-family="Georgia,serif" font-size="10" fill="#c9a84c">Budget Notes</text>
+  <line x1="130" y1="278" x2="270" y2="278" stroke="#e8d5d8" stroke-width="1"/>
+  <line x1="130" y1="291" x2="265" y2="291" stroke="#e8d5d8" stroke-width="1"/>
+  <line x1="130" y1="304" x2="255" y2="304" stroke="#e8d5d8" stroke-width="1"/>
+  <!-- Pen -->
+  <g transform="translate(310, 100) rotate(35)">
+    <rect x="-5" y="-80" width="10" height="100" rx="3" fill="#6d3b47"/>
+    <rect x="-5" y="20" width="10" height="20" rx="1" fill="#c9a84c"/>
+    <polygon points="-4,40 4,40 0,55" fill="#2c2c2c"/>
+  </g>
+  <!-- Small rose decoration -->
+  <g transform="translate(380, 300)" opacity="0.6">
+    <ellipse cx="0" cy="0" rx="30" ry="15" fill="#e8c5c9" transform="rotate(0)"/>
+    <ellipse cx="0" cy="0" rx="30" ry="15" fill="#ddb8bc" transform="rotate(45)"/>
+    <ellipse cx="0" cy="0" rx="30" ry="15" fill="#e8c5c9" transform="rotate(90)"/>
+    <ellipse cx="0" cy="0" rx="30" ry="15" fill="#d4a8ad" transform="rotate(135)"/>
+    <circle cx="0" cy="0" r="9" fill="#c9a0a5"/>
+  </g>
+  <ellipse cx="355" cy="320" rx="28" ry="11" fill="#b5c9b8" opacity="0.5" transform="rotate(-25,355,320)"/>
+  <ellipse cx="400" cy="275" rx="22" ry="9" fill="#9ab09e" opacity="0.45" transform="rotate(40,400,275)"/>
+</svg>
