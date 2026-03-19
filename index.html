@@ -1,1350 +1,653 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Free wedding budget planner template with vendor checklist, payment tracker, and real cost breakdown by category. Download free for Google Sheets.">
-<title>Wedding Budget Planner: Free Template + Real Cost Breakdown (2026) | VowFlow Studio</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💍</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  /* ── RESET & BASE ──────────────────────────────── */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Wedding Budget Calculator | VowFlow Studio</title>
+  <meta name="description" content="A free, simple wedding budget calculator. Enter your total budget and see how to split it across the main categories — no sign-up needed." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --rose:       #6D3B47;
-    --rose-mid:   #B5838D;
-    --rose-light: #E8D5D8;
-    --blush:      #FDF6F0;
-    --cream:      #FAF7F4;
-    --gold:       #C9A84C;
-    --gold-light: #F5EDD6;
-    --sage:       #7A9E87;
-    --sage-light: #EBF2ED;
-    --charcoal:   #2C2C2C;
-    --mid:        #666;
-    --border:     #E8E0DC;
-    --white:      #FFFFFF;
-    --serif: 'Cormorant Garamond', Georgia, serif;
-    --sans:  'Jost', sans-serif;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: var(--sans);
-    color: var(--charcoal);
-    background: var(--cream);
-    line-height: 1.7;
-    font-weight: 300;
-  }
-
-  /* ── DECORATIVE GRAIN ──────────────────────────── */
-  body::before {
-    content: '';
-    position: fixed; inset: 0; pointer-events: none; z-index: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.018'/%3E%3C/svg%3E");
-  }
-
-  /* ── NAV ───────────────────────────────────────── */
-  nav {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(253,246,240,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 40px;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 64px;
-  }
-  .nav-logo {
-    font-family: var(--serif);
-    font-size: 1.35rem;
-    font-weight: 600;
-    color: var(--rose);
-    text-decoration: none;
-    letter-spacing: 0.02em;
-  }
-  .nav-links {
-    display: flex; gap: 32px; list-style: none;
-  }
-  .nav-links a {
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--charcoal);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--rose); }
-  @media(max-width: 680px) {
-    .nav-links { display: none; }
-    nav { padding: 0 20px; }
-  }
-
-  /* ── HERO ──────────────────────────────────────── */
-  .hero {
-    position: relative;
-    min-height: 520px;
-    display: flex; align-items: center;
-    overflow: hidden;
-  }
-
-  /* 
-  ════════════════════════════════════════════════════
-  IMAGE INSTRUCTION #1 — HERO BACKGROUND
-  ════════════════════════════════════════════════════
-  Search on Unsplash.com (free) for:
-  "wedding flat lay table decor flowers"
-  OR "wedding planning notebook flowers"
-  OR "bridal aesthetic flatlay"
-  
-  Best picks: warm, soft, creamy tones. Avoid dark images.
-  Download the LARGE version (1920px wide).
-  Replace the gradient below with:
-  background-image: url('your-hero-image.jpg');
-  ════════════════════════════════════════════════════
-  */
-  .hero-bg {
-    position: absolute; inset: 0;
-    background: linear-gradient(135deg, #f9ede8 0%, #f0ddd8 30%, #e8d5d8 60%, #d4b8bc 100%);
-    background-size: cover; background-position: center right;
-  }
-  .hero-bg::after {
-    content: '';
-    position: absolute; inset: 0;
-    background: linear-gradient(90deg,
-      rgba(253,246,240,0.97) 0%,
-      rgba(253,246,240,0.85) 50%,
-      rgba(253,246,240,0.3) 100%);
-  }
-
-  .hero-content {
-    position: relative; z-index: 1;
-    max-width: 680px;
-    padding: 80px 40px 80px 80px;
-  }
-  @media(max-width: 680px) {
-    .hero-content { padding: 60px 24px; }
-  }
-
-  .hero-eyebrow {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 0.7rem; font-weight: 500;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--rose-mid);
-    margin-bottom: 20px;
-  }
-  .hero-eyebrow::before {
-    content: '';
-    display: block; width: 28px; height: 1px;
-    background: var(--rose-mid);
-  }
-
-  .hero h1 {
-    font-family: var(--serif);
-    font-size: clamp(2.4rem, 5vw, 3.6rem);
-    font-weight: 300;
-    line-height: 1.15;
-    color: var(--rose);
-    margin-bottom: 20px;
-    letter-spacing: -0.01em;
-  }
-  .hero h1 em {
-    font-style: italic;
-    font-weight: 300;
-    color: var(--charcoal);
-  }
-
-  .hero-desc {
-    font-size: 1.05rem;
-    color: var(--mid);
-    max-width: 500px;
-    margin-bottom: 36px;
-    line-height: 1.8;
-  }
-
-  .hero-buttons {
-    display: flex; gap: 14px; flex-wrap: wrap;
-  }
-
-  /* ── BUTTONS ───────────────────────────────────── */
-  .btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-family: var(--sans); font-weight: 500;
-    font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;
-    text-decoration: none; padding: 14px 28px; border-radius: 2px;
-    transition: all 0.25s; cursor: pointer; border: none;
-  }
-  .btn-primary {
-    background: var(--rose); color: var(--white);
-    box-shadow: 0 4px 20px rgba(109,59,71,0.3);
-  }
-  .btn-primary:hover {
-    background: #5a2e39;
-    box-shadow: 0 6px 28px rgba(109,59,71,0.4);
-    transform: translateY(-1px);
-  }
-  .btn-outline {
-    background: transparent; color: var(--rose);
-    border: 1px solid var(--rose-mid);
-  }
-  .btn-outline:hover {
-    background: var(--rose); color: var(--white);
-  }
-  .btn-gold {
-    background: var(--gold); color: var(--white);
-    box-shadow: 0 4px 20px rgba(201,168,76,0.3);
-  }
-  .btn-gold:hover {
-    background: #b8942e;
-    transform: translateY(-1px);
-  }
-  .btn-sage {
-    background: var(--sage); color: var(--white);
-  }
-  .btn-sage:hover { background: #628270; }
-
-  /* ── TRUST BAR ─────────────────────────────────── */
-  .trust-bar {
-    background: var(--rose);
-    padding: 14px 40px;
-    display: flex; align-items: center; justify-content: center;
-    gap: 40px; flex-wrap: wrap;
-  }
-  .trust-item {
-    display: flex; align-items: center; gap: 8px;
-    color: rgba(255,255,255,0.9);
-    font-size: 0.75rem; font-weight: 400;
-    letter-spacing: 0.06em;
-  }
-  .trust-item span { font-size: 0.9rem; }
-
-  /* ── LAYOUT ────────────────────────────────────── */
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 40px;
-  }
-  @media(max-width:680px){ .container { padding: 0 20px; } }
-
-  section { position: relative; z-index: 1; }
-
-  /* ── SECTION LABELS ────────────────────────────── */
-  .section-label {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 0.68rem; font-weight: 500;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--rose-mid); margin-bottom: 14px;
-  }
-  .section-label::before {
-    content: ''; display: block;
-    width: 22px; height: 1px; background: var(--rose-mid);
-  }
-
-  .section-heading {
-    font-family: var(--serif);
-    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-    font-weight: 300; line-height: 1.2;
-    color: var(--rose); margin-bottom: 14px;
-  }
-  .section-heading em { font-style: italic; }
-
-  .section-sub {
-    font-size: 0.95rem; color: var(--mid);
-    max-width: 580px; line-height: 1.8;
-  }
-
-  /* ── DIVIDERS ──────────────────────────────────── */
-  .divider {
-    height: 1px; background: var(--border);
-    margin: 0; border: none;
-  }
-  .divider-ornament {
-    text-align: center; padding: 12px 0;
-    color: var(--rose-light); font-size: 1.1rem;
-    letter-spacing: 8px;
-  }
-
-  /* ══════════════════════════════════════════════════
-     SECTION: FREE TEMPLATE
-  ══════════════════════════════════════════════════ */
-  .template-section {
-    padding: 80px 0;
-    background: var(--white);
-  }
-
-  .template-card {
-    background: linear-gradient(135deg, var(--blush) 0%, #fdf0f2 100%);
-    border: 1px solid var(--rose-light);
-    border-radius: 4px;
-    padding: 50px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
-    align-items: center;
-    margin-top: 40px;
-    position: relative;
-    overflow: hidden;
-  }
-  .template-card::before {
-    content: '💍';
-    position: absolute; right: -20px; top: -20px;
-    font-size: 120px; opacity: 0.04;
-  }
-  @media(max-width:680px){ 
-    .template-card { grid-template-columns:1fr; padding:30px; gap:30px; }
-  }
-
-  .template-features {
-    list-style: none;
-    display: flex; flex-direction: column; gap: 12px;
-    margin: 20px 0 28px;
-  }
-  .template-features li {
-    display: flex; align-items: flex-start; gap: 10px;
-    font-size: 0.9rem; color: var(--charcoal);
-  }
-  .template-features li::before {
-    content: '✓';
-    display: flex; align-items: center; justify-content: center;
-    width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px;
-    background: var(--sage); color: white;
-    font-size: 0.65rem; font-weight: 700; border-radius: 50%;
-  }
-
-  /*
-  ════════════════════════════════════════════════════
-  IMAGE INSTRUCTION #2 — TEMPLATE PREVIEW
-  ════════════════════════════════════════════════════
-  Take a screenshot of the Excel/Google Sheets template
-  you downloaded. Crop it to show the Budget Overview tab.
-  Save as 'template-preview.jpg' and place it here.
-  Size: approx 500 × 340px shown.
-  ════════════════════════════════════════════════════
-  */
-  .template-preview {
-    background: linear-gradient(135deg, #fff 0%, #fdf6f0 100%);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    height: 280px;
-    display: flex; align-items: center; justify-content: center;
-    flex-direction: column; gap: 10px;
-    color: var(--mid); font-size: 0.85rem;
-    box-shadow: 0 8px 32px rgba(109,59,71,0.08);
-    overflow: hidden;
-    position: relative;
-  }
-  /* Replace contents with: <img src="template-preview.jpg" alt="Wedding budget spreadsheet preview" style="width:100%;height:100%;object-fit:cover"> */
-  .template-preview-label {
-    font-size: 0.7rem; letter-spacing: 0.1em;
-    text-transform: uppercase; color: var(--rose-mid);
-    margin-top: 8px;
-  }
-  .spreadsheet-mock {
-    width: 90%; background: white;
-    border: 1px solid var(--border); border-radius: 2px;
-    overflow: hidden; font-size: 0.6rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  }
-  .sm-header {
-    background: var(--rose); color: white;
-    padding: 4px 8px; font-size: 0.55rem;
-    font-weight: 600; letter-spacing: 0.05em;
-  }
-  .sm-row {
-    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
-    border-bottom: 1px solid #f0ebe8;
-  }
-  .sm-row:nth-child(even) { background: #fdf8f6; }
-  .sm-cell {
-    padding: 3px 6px; font-size: 0.52rem; color: #555;
-    border-right: 1px solid #f0ebe8;
-  }
-  .sm-cell.blue { color: #1A56A0; font-weight: 600; }
-  .sm-cell.green { color: var(--sage); font-weight: 600; }
-  .sm-cell.header { background: #f5e8ea; font-weight: 600; color: var(--rose); font-size: 0.5rem; }
-
-  /* ══════════════════════════════════════════════════
-     SECTION: BUDGET BREAKDOWN
-  ══════════════════════════════════════════════════ */
-  .breakdown-section {
-    padding: 80px 0;
-    background: var(--cream);
-  }
-
-  .breakdown-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-top: 40px;
-  }
-  @media(max-width:680px){
-    .breakdown-grid { grid-template-columns:1fr; }
-  }
-  @media(min-width:681px) and (max-width:900px){
-    .breakdown-grid { grid-template-columns:1fr 1fr; }
-  }
-
-  .breakdown-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-top: 3px solid var(--rose-mid);
-    padding: 22px 20px;
-    border-radius: 2px;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .breakdown-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(109,59,71,0.1);
-  }
-  .bc-category {
-    font-size: 0.7rem; font-weight: 500;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--rose-mid); margin-bottom: 6px;
-  }
-  .bc-pct {
-    font-family: var(--serif);
-    font-size: 2.2rem; font-weight: 300;
-    color: var(--rose); line-height: 1;
-    margin-bottom: 4px;
-  }
-  .bc-range {
-    font-size: 0.78rem; color: var(--mid);
-    margin-bottom: 10px;
-  }
-  .bc-bar {
-    height: 3px; background: var(--border); border-radius: 2px;
-  }
-  .bc-fill {
-    height: 100%; border-radius: 2px;
-    background: linear-gradient(90deg, var(--rose), var(--rose-mid));
-  }
-  .bc-note {
-    font-size: 0.72rem; color: var(--mid);
-    margin-top: 8px; font-style: italic; line-height: 1.5;
-  }
-
-  /* Example budgets row */
-  .example-budgets {
-    margin-top: 40px;
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  .eb-header {
-    background: var(--rose);
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-    padding: 12px 20px;
-    gap: 10px;
-  }
-  .eb-header span {
-    font-size: 0.7rem; font-weight: 500;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    color: rgba(255,255,255,0.85);
-  }
-  .eb-row {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-    padding: 12px 20px; gap: 10px;
-    border-bottom: 1px solid var(--border);
-    align-items: center;
-  }
-  .eb-row:nth-child(even) { background: var(--blush); }
-  .eb-row:last-child { border-bottom: none; }
-  .eb-row span { font-size: 0.82rem; color: var(--charcoal); }
-  .eb-row .cat { font-weight: 500; }
-  .eb-row .pct { color: var(--rose-mid); font-weight: 500; font-size: 0.78rem; }
-  .eb-total {
-    background: var(--rose-light) !important;
-  }
-  .eb-total span { font-weight: 600; color: var(--rose) !important; }
-  @media(max-width:600px){
-    .eb-header, .eb-row { 
-      grid-template-columns: 2fr 1fr 1fr; 
+    :root {
+      --cream:   #faf7f2;
+      --taupe:   #c4a882;
+      --dark:    #2c2420;
+      --mid:     #6b5748;
+      --light:   #f0e9de;
+      --border:  #e0d5c5;
+      --green:   #4a7c59;
+      --radius:  10px;
     }
-    .eb-header span:nth-child(4),
-    .eb-header span:nth-child(5),
-    .eb-row span:nth-child(4),
-    .eb-row span:nth-child(5) { display: none; }
-  }
 
-  /* ══════════════════════════════════════════════════
-     SECTION: VENDOR CHECKLIST
-  ══════════════════════════════════════════════════ */
-  .vendor-section {
-    padding: 80px 0;
-    background: var(--white);
-  }
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      background: var(--cream);
+      color: var(--dark);
+      line-height: 1.7;
+    }
 
-  .vendor-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    margin-top: 40px;
-    align-items: start;
-  }
-  @media(max-width:680px){ .vendor-grid { grid-template-columns: 1fr; } }
+    /* ── NAV ── */
+    nav {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .nav-brand {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--dark);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 20px; list-style: none; }
+    .nav-links a { font-size: 0.82rem; color: var(--mid); text-decoration: none; letter-spacing: 0.03em; }
+    .nav-links a:hover { color: var(--taupe); }
 
-  /*
-  ════════════════════════════════════════════════════
-  IMAGE INSTRUCTION #3 — VENDOR SECTION IMAGE
-  ════════════════════════════════════════════════════
-  Search Unsplash for: "wedding planning checklist notebook pen"
-  OR "bride planning wedding details close up"
-  OR "wedding stationery flat lay"
-  
-  Use a vertical/portrait image (taller than wide).
-  Warm tones, soft light. Avoid stock-photo-feeling images.
-  Save as 'vendor-planning.jpg'
-  Replace the .vendor-image-placeholder div with:
-  <img src="vendor-planning.jpg" alt="Wedding planning checklist" 
-       style="width:100%;height:100%;object-fit:cover;border-radius:2px">
-  ════════════════════════════════════════════════════
-  */
-  .vendor-image-placeholder {
-    height: 420px;
-    background: linear-gradient(160deg, var(--blush), var(--rose-light));
-    border-radius: 2px;
-    display: flex; align-items: center; justify-content: center;
-    flex-direction: column; gap: 8px;
-    color: var(--rose-mid);
-    font-size: 3rem;
-    border: 1px solid var(--border);
-    position: relative; overflow: hidden;
-  }
-  .vendor-image-placeholder::after { content: ''; }
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #2c2420 0%, #4a3728 100%);
+      color: #fff;
+      text-align: center;
+      padding: 72px 24px 64px;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      background: rgba(196,168,130,0.25);
+      border: 1px solid rgba(196,168,130,0.5);
+      color: var(--taupe);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.2;
+      max-width: 640px;
+      margin: 0 auto 16px;
+    }
+    .hero h1 span { color: var(--taupe); }
+    .hero p {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.78);
+      max-width: 520px;
+      margin: 0 auto 32px;
+      font-family: -apple-system, sans-serif;
+    }
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+    .pill {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.88);
+      font-family: -apple-system, sans-serif;
+      font-size: 0.78rem;
+      padding: 5px 14px;
+      border-radius: 20px;
+    }
+    .pill::before { content: "✓  "; color: var(--taupe); }
 
-  .booking-timeline {
-    display: flex; flex-direction: column; gap: 0;
-    margin-top: 24px;
-  }
-  .bt-item {
-    display: flex; gap: 16px;
-    padding-bottom: 20px;
-    position: relative;
-  }
-  .bt-item:not(:last-child)::before {
-    content: '';
-    position: absolute;
-    left: 15px; top: 32px;
-    width: 1px; bottom: 0;
-    background: var(--border);
-  }
-  .bt-dot {
-    width: 32px; height: 32px; flex-shrink: 0;
-    border-radius: 50%;
-    background: var(--rose);
-    display: flex; align-items: center; justify-content: center;
-    color: white; font-size: 0.6rem; font-weight: 700;
-    letter-spacing: 0.02em;
-    box-shadow: 0 2px 8px rgba(109,59,71,0.3);
-    z-index: 1; position: relative;
-  }
-  .bt-content { flex: 1; }
-  .bt-when {
-    font-size: 0.68rem; font-weight: 500;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--rose-mid); margin-bottom: 4px;
-  }
-  .bt-what {
-    font-size: 0.85rem; font-weight: 400;
-    color: var(--charcoal); line-height: 1.5;
-  }
+    /* ── CALCULATOR SECTION ── */
+    .calc-section {
+      max-width: 720px;
+      margin: 56px auto;
+      padding: 0 20px;
+    }
+    .calc-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    }
+    .calc-header {
+      background: var(--light);
+      padding: 28px 32px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .calc-header h2 {
+      font-size: 1.25rem;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+    .calc-header p {
+      font-size: 0.875rem;
+      color: var(--mid);
+      font-family: -apple-system, sans-serif;
+    }
 
-  /* ══════════════════════════════════════════════════
-     SECTION: BUDGET TIPS
-  ══════════════════════════════════════════════════ */
-  .tips-section {
-    padding: 80px 0;
-    background: var(--cream);
-  }
+    .budget-input-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .currency-select {
+      height: 44px;
+      padding: 0 12px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      background: #fff;
+      font-size: 0.9rem;
+      color: var(--dark);
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      padding-right: 28px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b5748' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+    }
+    .total-input {
+      flex: 1;
+      min-width: 160px;
+      height: 44px;
+      padding: 0 16px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 1.05rem;
+      font-family: -apple-system, sans-serif;
+      color: var(--dark);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .total-input:focus { border-color: var(--taupe); }
+    .calc-btn {
+      height: 44px;
+      padding: 0 22px;
+      background: var(--taupe);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      font-family: -apple-system, sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      white-space: nowrap;
+    }
+    .calc-btn:hover { background: #b5956e; }
+    .calc-btn:active { transform: scale(0.98); }
 
-  .tips-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-top: 40px;
-  }
-  @media(max-width:680px){ .tips-grid { grid-template-columns: 1fr; } }
+    /* ── TABLE ── */
+    .calc-body { padding: 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: -apple-system, sans-serif;
+    }
+    thead th {
+      background: var(--dark);
+      color: rgba(255,255,255,0.8);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 12px 20px;
+      text-align: left;
+    }
+    thead th:last-child { text-align: right; }
+    tbody tr { border-bottom: 1px solid var(--border); }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--light); }
+    td {
+      padding: 14px 20px;
+      font-size: 0.9rem;
+      color: var(--dark);
+    }
+    td:last-child { text-align: right; font-weight: 600; }
+    .cat-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      margin-right: 9px;
+      vertical-align: middle;
+    }
+    .cat-name { font-weight: 500; }
+    .cat-pct {
+      font-size: 0.78rem;
+      color: var(--mid);
+      margin-left: 6px;
+    }
+    .cat-note {
+      font-size: 0.75rem;
+      color: var(--mid);
+      margin-top: 2px;
+    }
+    .amount-cell {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+    .amount-placeholder {
+      color: #bbb;
+      font-weight: 400;
+    }
 
-  .tip-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    padding: 24px 26px;
-    border-radius: 2px;
-    display: flex; gap: 16px;
-    transition: box-shadow 0.2s;
-  }
-  .tip-card:hover {
-    box-shadow: 0 4px 16px rgba(109,59,71,0.08);
-  }
-  .tip-number {
-    font-family: var(--serif);
-    font-size: 2.6rem; font-weight: 300;
-    color: var(--rose-light);
-    line-height: 1; flex-shrink: 0;
-    width: 44px;
-  }
-  .tip-body h3 {
-    font-family: var(--serif);
-    font-size: 1.05rem; font-weight: 400;
-    color: var(--rose); margin-bottom: 6px;
-  }
-  .tip-body p {
-    font-size: 0.83rem; color: var(--mid);
-    line-height: 1.7;
-  }
+    /* totals row */
+    .total-row td {
+      background: var(--light);
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-top: 2px solid var(--border);
+    }
+    .total-row td:last-child { font-size: 1.05rem; color: var(--green); }
 
-  /* ══════════════════════════════════════════════════
-     SECTION: AMAZON PRODUCTS
-  ══════════════════════════════════════════════════ */
-  .products-section {
-    padding: 80px 0;
-    background: var(--white);
-  }
+    .calc-footer {
+      padding: 16px 24px;
+      background: #fdfcfa;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--mid);
+      font-family: -apple-system, sans-serif;
+    }
 
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    margin-top: 40px;
-  }
-  @media(max-width:580px){ .products-grid { grid-template-columns:1fr; } }
+    /* ── UPGRADE BANNER ── */
+    .upgrade-section {
+      max-width: 720px;
+      margin: 0 auto 56px;
+      padding: 0 20px;
+    }
+    .upgrade-card {
+      background: linear-gradient(135deg, #2c2420 0%, #3e2e24 100%);
+      border-radius: 16px;
+      padding: 40px 36px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    .upgrade-card::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 200px; height: 200px;
+      background: rgba(196,168,130,0.08);
+      border-radius: 50%;
+    }
+    .upgrade-badge {
+      display: inline-block;
+      background: var(--taupe);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      font-family: -apple-system, sans-serif;
+    }
+    .upgrade-card h2 {
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+    .upgrade-card h2 span { color: var(--taupe); }
+    .upgrade-card > p {
+      color: rgba(255,255,255,0.75);
+      font-size: 0.9rem;
+      font-family: -apple-system, sans-serif;
+      max-width: 480px;
+      margin-bottom: 28px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 20px;
+      margin-bottom: 32px;
+      max-width: 540px;
+    }
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-family: -apple-system, sans-serif;
+      color: rgba(255,255,255,0.88);
+    }
+    .feature-icon {
+      flex-shrink: 0;
+      color: var(--taupe);
+      font-size: 0.95rem;
+      margin-top: 1px;
+    }
+    .free-vs {
+      display: inline-block;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 4px 12px;
+      font-size: 0.75rem;
+      font-family: -apple-system, sans-serif;
+      color: rgba(255,255,255,0.5);
+      text-decoration: line-through;
+      margin-bottom: 20px;
+    }
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: var(--taupe);
+      color: #fff;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      padding: 13px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.1s;
+      letter-spacing: 0.02em;
+    }
+    .cta-btn:hover { background: #b5956e; transform: translateY(-1px); }
+    .cta-note {
+      font-size: 0.8rem;
+      font-family: -apple-system, sans-serif;
+      color: rgba(255,255,255,0.55);
+    }
+    .cta-note strong { color: rgba(255,255,255,0.8); font-weight: 600; }
 
-  .product-card {
-    border: 1px solid var(--border);
-    border-radius: 2px;
-    overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .product-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(109,59,71,0.1);
-  }
+    /* ── COMPARISON TABLE ── */
+    .compare-section {
+      max-width: 720px;
+      margin: 0 auto 64px;
+      padding: 0 20px;
+    }
+    .compare-section h2 {
+      text-align: center;
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+    }
+    .compare-section .sub {
+      text-align: center;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.875rem;
+      color: var(--mid);
+      margin-bottom: 28px;
+    }
+    .compare-table {
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.875rem;
+    }
+    .compare-table table { border-collapse: collapse; width: 100%; }
+    .compare-table thead th {
+      background: var(--dark);
+      padding: 14px 20px;
+      font-size: 0.78rem;
+    }
+    .compare-table thead th.free-col { background: #3e3028; }
+    .compare-table thead th.paid-col { background: var(--taupe); color: #fff; }
+    .compare-table tbody tr { border-bottom: 1px solid var(--border); }
+    .compare-table tbody tr:last-child { border-bottom: none; }
+    .compare-table tbody td { padding: 12px 20px; color: var(--dark); }
+    .compare-table tbody td.free-col { color: var(--mid); }
+    .compare-table tbody td.paid-col { color: var(--green); font-weight: 600; }
+    .check { color: var(--green); }
+    .cross { color: #ccc; }
 
-  /*
-  ════════════════════════════════════════════════════
-  IMAGE INSTRUCTIONS #4–7 — PRODUCT CARDS
-  ════════════════════════════════════════════════════
-  For each product card, search Amazon for the actual
-  product you're linking to, and use their product image
-  OR search Unsplash for these:
-  
-  Card 1 (Welcome Bags):
-    Unsplash: "wedding welcome bag kraft paper gifts"
-    Amazon search: "wedding welcome bags bulk"
-  
-  Card 2 (Bathroom Basket):
-    Unsplash: "bathroom basket wedding essentials"
-    Amazon search: "wedding bathroom basket essentials"
-  
-  Card 3 (Emergency Kit):
-    Unsplash: "wedding emergency kit small bag"
-    Amazon search: "wedding emergency kit"
-  
-  Card 4 (Favours):
-    Unsplash: "wedding favours table candles"
-    Amazon search: "wedding favours bulk under 2"
-  
-  Replace each .product-img div with:
-  <img src="product-X.jpg" alt="..." 
-       style="width:100%;height:100%;object-fit:cover">
-  ════════════════════════════════════════════════════
-  */
-  .product-img {
-    height: 180px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 2.5rem;
-    position: relative;
-  }
-  .product-img.p1 { background: linear-gradient(135deg, #f9ede8, #e8d5d8); }
-  .product-img.p2 { background: linear-gradient(135deg, #ebf2ed, #d4e6d9); }
-  .product-img.p3 { background: linear-gradient(135deg, #fff8e7, #f5edd6); }
-  .product-img.p4 { background: linear-gradient(135deg, #fdf6f0, #f0ddd8); }
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.55);
+      text-align: center;
+      padding: 32px 24px;
+      font-family: -apple-system, sans-serif;
+      font-size: 0.78rem;
+    }
+    footer a { color: var(--taupe); text-decoration: none; }
+    footer .brand { font-size: 0.9rem; color: rgba(255,255,255,0.8); font-weight: 600; margin-bottom: 6px; }
 
-  .product-body { padding: 18px 20px; }
-  .product-label {
-    font-size: 0.65rem; font-weight: 500;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--rose-mid); margin-bottom: 6px;
-  }
-  .product-body h3 {
-    font-family: var(--serif);
-    font-size: 1.15rem; font-weight: 400;
-    color: var(--charcoal); margin-bottom: 6px;
-  }
-  .product-body p {
-    font-size: 0.8rem; color: var(--mid);
-    line-height: 1.6; margin-bottom: 14px;
-  }
-  .product-link {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 0.72rem; font-weight: 500;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--rose); text-decoration: none;
-    border-bottom: 1px solid var(--rose-light);
-    padding-bottom: 2px;
-    transition: border-color 0.2s, color 0.2s;
-  }
-  .product-link:hover {
-    color: var(--charcoal);
-    border-color: var(--charcoal);
-  }
-  .product-link::after { content: '→'; }
-
-  /* ══════════════════════════════════════════════════
-     CTA BANNER
-  ══════════════════════════════════════════════════ */
-  .cta-section {
-    padding: 70px 0;
-    background: var(--rose);
-    text-align: center;
-    position: relative; overflow: hidden;
-  }
-  .cta-section::before {
-    content: '💍';
-    position: absolute; left: 5%; top: 50%;
-    transform: translateY(-50%);
-    font-size: 80px; opacity: 0.06;
-  }
-  .cta-section::after {
-    content: '💍';
-    position: absolute; right: 5%; top: 50%;
-    transform: translateY(-50%);
-    font-size: 80px; opacity: 0.06;
-  }
-  .cta-section h2 {
-    font-family: var(--serif);
-    font-size: clamp(1.8rem, 3vw, 2.6rem);
-    font-weight: 300; color: white;
-    margin-bottom: 14px; letter-spacing: 0.01em;
-  }
-  .cta-section p {
-    color: rgba(255,255,255,0.8);
-    font-size: 0.95rem; margin-bottom: 30px;
-  }
-
-  /* ══════════════════════════════════════════════════
-     RELATED GUIDES
-  ══════════════════════════════════════════════════ */
-  .related-section {
-    padding: 70px 0;
-    background: var(--cream);
-  }
-
-  .related-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-top: 36px;
-  }
-  @media(max-width:680px){ .related-grid { grid-template-columns:1fr; } }
-
-  .related-card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 2px; overflow: hidden;
-    text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s;
-    display: block;
-  }
-  .related-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(109,59,71,0.1);
-  }
-
-  /*
-  ════════════════════════════════════════════════════
-  IMAGE INSTRUCTIONS #8–10 — RELATED GUIDE CARDS
-  ════════════════════════════════════════════════════
-  Card 1 (Welcome Bags):
-    Unsplash: "wedding welcome bag contents flatlay"
-    → Save as 'related-welcome-bag.jpg'
-  
-  Card 2 (Bathroom Basket):
-    Unsplash: "wedding bathroom basket toiletries"
-    → Save as 'related-bathroom.jpg'
-  
-  Card 3 (Emergency Kit):
-    Unsplash: "bride getting ready essentials bag"
-    → Save as 'related-emergency.jpg'
-  
-  Replace each .related-img with:
-  <img src="related-X.jpg" alt="..."
-       style="width:100%;height:100%;object-fit:cover">
-  ════════════════════════════════════════════════════
-  */
-  .related-img {
-    height: 160px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 2rem;
-  }
-  .rc1 { background: linear-gradient(135deg, #f9ede8, #e8d5d8); }
-  .rc2 { background: linear-gradient(135deg, #ebf2ed, #d4e6d9); }
-  .rc3 { background: linear-gradient(135deg, #fff8e7, #f5edd6); }
-
-  .related-body { padding: 16px 18px 20px; }
-  .related-body .label {
-    font-size: 0.62rem; font-weight: 500;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--rose-mid); margin-bottom: 5px;
-  }
-  .related-body h3 {
-    font-family: var(--serif);
-    font-size: 1.05rem; font-weight: 400;
-    color: var(--charcoal); margin-bottom: 6px;
-  }
-  .related-body p {
-    font-size: 0.78rem; color: var(--mid); line-height: 1.6;
-  }
-
-  /* ══════════════════════════════════════════════════
-     FOOTER
-  ══════════════════════════════════════════════════ */
-  footer {
-    background: var(--rose);
-    padding: 36px 40px;
-    text-align: center;
-  }
-  .footer-logo {
-    font-family: var(--serif);
-    font-size: 1.5rem; font-weight: 300;
-    color: rgba(255,255,255,0.9);
-    margin-bottom: 10px;
-    letter-spacing: 0.02em;
-  }
-  .footer-links {
-    display: flex; justify-content: center;
-    gap: 24px; flex-wrap: wrap; margin-bottom: 16px;
-  }
-  .footer-links a {
-    color: rgba(255,255,255,0.7);
-    font-size: 0.75rem; letter-spacing: 0.08em;
-    text-transform: uppercase; text-decoration: none;
-  }
-  .footer-links a:hover { color: white; }
-  .footer-disclosure {
-    font-size: 0.72rem;
-    color: rgba(255,255,255,0.5);
-    max-width: 560px; margin: 0 auto;
-    line-height: 1.6;
-  }
-
-  /* ── ANIMATIONS ────────────────────────────────── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .hero-content > * {
-    animation: fadeUp 0.7s ease both;
-  }
-  .hero-eyebrow  { animation-delay: 0.1s; }
-  .hero h1       { animation-delay: 0.2s; }
-  .hero-desc     { animation-delay: 0.3s; }
-  .hero-buttons  { animation-delay: 0.4s; }
-</style>
+    @media (max-width: 540px) {
+      .upgrade-card { padding: 28px 20px; }
+      .features-grid { grid-template-columns: 1fr; }
+      nav { padding: 0 16px; }
+      .nav-links { gap: 12px; }
+      thead th, td { padding: 10px 14px; }
+      .calc-header { padding: 20px 16px 18px; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ── NAV ─────────────────────────────────────────────── -->
+<!-- NAV -->
 <nav>
-  <a class="nav-logo" href="https://sites.google.com/view/vowflow-studio/home"><img src="logo.png" alt="VowFlow Studio" style="height:38px;width:auto;"></a>
+  <a class="nav-brand" href="/">VowFlow Studio</a>
   <ul class="nav-links">
-    <li><a href="https://sites.google.com/view/vowflow-studio/home">Home</a></li>
-    <li><a href="https://sites.google.com/view/wedding-day-essentials/home">Day Essentials</a></li>
-    <li><a href="https://sites.google.com/view/vowflowstudio-welcome-bags/home">Welcome Bags</a></li>
-    <li><a href="https://sites.google.com/view/weddingbathroombasketessential/home">Bathroom Basket</a></li>
+    <li><a href="https://www.etsy.com/shop/VowFlowStudio" target="_blank">Etsy Shop</a></li>
   </ul>
 </nav>
 
-<!-- ── HERO ────────────────────────────────────────────── -->
+<!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
-  <!-- 
-  📸 IMAGE INSTRUCTION #1
-  Replace .hero-bg background with a real photo.
-  Go to unsplash.com → search "wedding planning flatlay flowers"
-  Pick a warm, creamy, soft-toned image.
-  Add to .hero-bg: background-image: url('hero.jpg'); background-size: cover; background-position: center top;
-  -->
-  <div class="hero-content">
-    <div class="hero-eyebrow">Free Resource</div>
-    <h1>Wedding Budget Planner<br><em>Free Template + Real</em><br>Cost Breakdown</h1>
-    <p class="hero-desc">Everything you need to plan your wedding budget with confidence — a free spreadsheet, real cost breakdowns, a vendor checklist, and practical tips to help you stay on track.</p>
-    <div class="hero-buttons">
-      <a href="https://docs.google.com/spreadsheets/d/1mQKIt67i5mKytfcsp8TijeAIMHB-mdENO0q8uGHxBcU/edit?usp=sharing" class="btn btn-primary" target="_blank">
-        ↓ Download Free Template
+  <span class="hero-eyebrow">Free Tool — No Sign-Up</span>
+  <h1>Wedding Budget <span>Calculator</span></h1>
+  <p>Enter your total budget and instantly see how much to allocate to each category. Simple, free, no frills.</p>
+  <div class="pill-row">
+    <span class="pill">Works in any browser</span>
+    <span class="pill">No sign-up needed</span>
+    <span class="pill">5 currencies</span>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="calc-section">
+  <div class="calc-card">
+    <div class="calc-header">
+      <h2>Your Budget Breakdown</h2>
+      <p>Enter your total wedding budget below. Suggested amounts update instantly.</p>
+      <div class="budget-input-row">
+        <select class="currency-select" id="currencySelect" onchange="recalc()">
+          <option value="£">£ GBP</option>
+          <option value="€">€ EUR</option>
+          <option value="$">$ USD</option>
+          <option value="CHF">CHF</option>
+          <option value="kr">kr SEK</option>
+        </select>
+        <input
+          class="total-input"
+          id="totalBudget"
+          type="number"
+          placeholder="e.g. 15000"
+          min="0"
+          step="500"
+          oninput="recalc()"
+        />
+        <button class="calc-btn" onclick="recalc()">Calculate</button>
+      </div>
+    </div>
+
+    <div class="calc-body">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th style="text-align:center">% of Budget</th>
+            <th>Suggested Amount</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <!-- rows injected by JS -->
+        </tbody>
+        <tfoot>
+          <tr class="total-row">
+            <td colspan="2"><strong>Total Allocated</strong></td>
+            <td id="totalAllocated" class="amount-cell amount-placeholder">—</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="calc-footer">
+      Percentages are typical guidelines — every wedding is different. Adjust based on your priorities.
+    </div>
+  </div>
+</section>
+
+<!-- UPGRADE BANNER -->
+<section class="upgrade-section">
+  <div class="upgrade-card">
+    <span class="upgrade-badge">Premium on Etsy</span>
+    <h2>Need More Than a Calculator?<br/><span>The ADHD-Friendly Planner Has Everything.</span></h2>
+    <p>This free tool gives you a starting point. The premium spreadsheet gives you a complete system — built specifically for ADHD brains that need structure, colour, and clarity to stay on track.</p>
+
+    <span class="free-vs">This free tool: basic calculator only</span>
+
+    <div class="features-grid">
+      <div class="feature-item"><span class="feature-icon">✦</span> Colour-coded categories so nothing gets missed</div>
+      <div class="feature-item"><span class="feature-icon">✦</span> Visual progress bars per category</div>
+      <div class="feature-item"><span class="feature-icon">✦</span> Vendor tracker — deposits, balances, due dates</div>
+      <div class="feature-item"><span class="feature-icon">✦</span> Payment log with method &amp; category</div>
+      <div class="feature-item"><span class="feature-icon">✦</span> ADHD-friendly layout — no information overload</div>
+      <div class="feature-item"><span class="feature-icon">✦</span> Works in Excel &amp; Google Sheets</div>
+      <div class="feature-item"><span class="feature-icon">✦</span> 20+ currencies supported</div>
+      <div class="feature-item"><span class="feature-icon">✦</span> Instant digital download — use today</div>
+    </div>
+
+    <div class="cta-row">
+      <a class="cta-btn" href="https://www.etsy.com/shop/VowFlowStudio" target="_blank">
+        See Premium Planners on Etsy →
       </a>
-      <a href="#tips" class="btn btn-outline">Read the Tips</a>
+      <span class="cta-note">From <strong>$6.99</strong> — instant download</span>
     </div>
   </div>
 </section>
 
-<!-- ── TRUST BAR ───────────────────────────────────────── -->
-<div class="trust-bar">
-  <div class="trust-item"><span>✓</span> Free forever — no email required</div>
-  <div class="trust-item"><span>✓</span> Works in Google Sheets &amp; Excel</div>
-  <div class="trust-item"><span>✓</span> 20+ currencies supported</div>
-  <div class="trust-item"><span>✓</span> Auto-calculating formulas</div>
-</div>
-
-<!-- ── FREE TEMPLATE ───────────────────────────────────── -->
-<section class="template-section" id="template">
-  <div class="container">
-    <div class="section-label">Free Download</div>
-    <h2 class="section-heading">The Complete <em>Wedding Budget</em> Spreadsheet</h2>
-    <p class="section-sub">One file. Four tabs. Everything you need to track your entire wedding budget from engagement to wedding day.</p>
-
-    <div class="template-card">
-      <div>
-        <ul class="template-features">
-          <li><strong>Budget Overview</strong> — allocate by category, see suggested amounts based on your total</li>
-          <li><strong>Vendor Checklist</strong> — track 30 vendors with deposits, balances &amp; due dates</li>
-          <li><strong>Payment Tracker</strong> — log every payment, method, and category</li>
-          <li><strong>Budget Tips Tab</strong> — 12 money-saving tips built right into the file</li>
-          <li>Pick your currency — CHF, £, €, $, kr and 15+ more</li>
-          <li>All totals update automatically as you type</li>
-        </ul>
-        <a href="https://docs.google.com/spreadsheets/d/1mQKIt67i5mKytfcsp8TijeAIMHB-mdENO0q8uGHxBcU/edit?usp=sharing" class="btn btn-primary" target="_blank">
-          ↓ Open Free Template
-        </a>
-        <p style="margin-top:10px;font-size:0.72rem;color:var(--mid)">Click File → Make a Copy to save your own version.</p>
-      </div>
-
-      <!-- 📸 IMAGE INSTRUCTION #2: Replace this div with a screenshot of the template -->
-      <div class="template-preview">
-        <div class="spreadsheet-mock">
-          <div class="sm-header">💍 VowFlow Studio — Wedding Budget Planner</div>
-          <div class="sm-row">
-            <div class="sm-cell header">Category</div>
-            <div class="sm-cell header">Budget</div>
-            <div class="sm-cell header">Spent</div>
-            <div class="sm-cell header">Left</div>
-          </div>
-          <div class="sm-row">
-            <div class="sm-cell">Venue & Catering</div>
-            <div class="sm-cell blue">6,750</div>
-            <div class="sm-cell blue">4,200</div>
-            <div class="sm-cell green">2,550</div>
-          </div>
-          <div class="sm-row">
-            <div class="sm-cell">Photography</div>
-            <div class="sm-cell blue">1,800</div>
-            <div class="sm-cell blue">900</div>
-            <div class="sm-cell green">900</div>
-          </div>
-          <div class="sm-row">
-            <div class="sm-cell">Flowers & Décor</div>
-            <div class="sm-cell blue">1,350</div>
-            <div class="sm-cell blue">0</div>
-            <div class="sm-cell green">1,350</div>
-          </div>
-          <div class="sm-row">
-            <div class="sm-cell">Attire & Beauty</div>
-            <div class="sm-cell blue">1,500</div>
-            <div class="sm-cell blue">800</div>
-            <div class="sm-cell green">700</div>
-          </div>
-        </div>
-        <div class="template-preview-label">📸 Replace with screenshot of your template</div>
-      </div>
-    </div>
+<!-- COMPARISON -->
+<section class="compare-section">
+  <h2>Free vs. Premium</h2>
+  <p class="sub">What you get with each version</p>
+  <div class="compare-table">
+    <table>
+      <thead>
+        <tr>
+          <th style="color:rgba(255,255,255,0.7); text-align:left">Feature</th>
+          <th class="free-col" style="color:rgba(255,255,255,0.6); text-align:center">Free (this page)</th>
+          <th class="paid-col" style="text-align:center">Premium Planner</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Budget split by category</td>
+          <td class="free-col" style="text-align:center"><span class="check">✓</span> Basic</td>
+          <td class="paid-col" style="text-align:center"><span class="check">✓</span> Full + editable</td>
+        </tr>
+        <tr>
+          <td>Colour-coded categories</td>
+          <td class="free-col" style="text-align:center"><span class="cross">—</span></td>
+          <td class="paid-col" style="text-align:center"><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Visual progress trackers</td>
+          <td class="free-col" style="text-align:center"><span class="cross">—</span></td>
+          <td class="paid-col" style="text-align:center"><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Vendor tracker (30+ vendors)</td>
+          <td class="free-col" style="text-align:center"><span class="cross">—</span></td>
+          <td class="paid-col" style="text-align:center"><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Payment log</td>
+          <td class="free-col" style="text-align:center"><span class="cross">—</span></td>
+          <td class="paid-col" style="text-align:center"><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>ADHD-friendly layout</td>
+          <td class="free-col" style="text-align:center"><span class="cross">—</span></td>
+          <td class="paid-col" style="text-align:center"><span class="check">✓</span></td>
+        </tr>
+        <tr>
+          <td>Downloadable spreadsheet file</td>
+          <td class="free-col" style="text-align:center"><span class="cross">—</span></td>
+          <td class="paid-col" style="text-align:center"><span class="check">✓</span> Excel &amp; Google Sheets</td>
+        </tr>
+        <tr>
+          <td>Price</td>
+          <td class="free-col" style="text-align:center; font-weight:600">Free</td>
+          <td class="paid-col" style="text-align:center">From $6.99</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
-<hr class="divider">
-<div class="divider-ornament">· · ·</div>
-<hr class="divider">
-
-<!-- ── BUDGET BREAKDOWN ────────────────────────────────── -->
-<section class="breakdown-section" id="breakdown">
-  <div class="container">
-    <div class="section-label">By the Numbers</div>
-    <h2 class="section-heading">How a Wedding Budget<br><em>Is Usually Divided</em></h2>
-    <p class="section-sub">Here's how most couples split their budget across categories. Use this as a starting point, then adjust for your priorities.</p>
-
-    <div class="breakdown-grid">
-      <div class="breakdown-card" style="border-top-color:#6D3B47">
-        <div class="bc-category">Venue & Catering</div>
-        <div class="bc-pct">40–50%</div>
-        <div class="bc-range">£6,000–10,000 on a £15–20K budget</div>
-        <div class="bc-bar"><div class="bc-fill" style="width:45%;background:linear-gradient(90deg,#6D3B47,#B5838D)"></div></div>
-        <div class="bc-note">The biggest single expense. Lock this in first, then allocate the rest.</div>
-      </div>
-      <div class="breakdown-card" style="border-top-color:#B5838D">
-        <div class="bc-category">Photography & Video</div>
-        <div class="bc-pct">10–15%</div>
-        <div class="bc-range">£1,500–3,000 on a £15–20K budget</div>
-        <div class="bc-bar"><div class="bc-fill" style="width:12%;background:linear-gradient(90deg,#B5838D,#E8D5D8)"></div></div>
-        <div class="bc-note">Never cut this. Photos last forever — every couple who saves here regrets it.</div>
-      </div>
-      <div class="breakdown-card" style="border-top-color:#7A9E87">
-        <div class="bc-category">Flowers & Décor</div>
-        <div class="bc-pct">8–10%</div>
-        <div class="bc-range">£1,200–2,000 on a £15–20K budget</div>
-        <div class="bc-bar"><div class="bc-fill" style="width:9%;background:linear-gradient(90deg,#7A9E87,#EBF2ED)"></div></div>
-        <div class="bc-note">Very negotiable. Greenery and candles can achieve the same look for half the cost.</div>
-      </div>
-      <div class="breakdown-card" style="border-top-color:#C9A84C">
-        <div class="bc-category">Attire & Beauty</div>
-        <div class="bc-pct">8–12%</div>
-        <div class="bc-range">£1,200–2,400 on a £15–20K budget</div>
-        <div class="bc-bar"><div class="bc-fill" style="width:10%;background:linear-gradient(90deg,#C9A84C,#F5EDD6)"></div></div>
-        <div class="bc-note">Includes dress, suit, hair, makeup and alterations. Don't forget accessories.</div>
-      </div>
-      <div class="breakdown-card" style="border-top-color:#9B8BB4">
-        <div class="bc-category">Music & Entertainment</div>
-        <div class="bc-pct">5–8%</div>
-        <div class="bc-range">£750–1,600 on a £15–20K budget</div>
-        <div class="bc-bar"><div class="bc-fill" style="width:6%;background:linear-gradient(90deg,#9B8BB4,#D4C8E8)"></div></div>
-        <div class="bc-note">A DJ is typically 40–60% cheaper than a live band for the same evening coverage.</div>
-      </div>
-      <div class="breakdown-card" style="border-top-color:#E8A598">
-        <div class="bc-category">Buffer / Miscellaneous</div>
-        <div class="bc-pct">10%</div>
-        <div class="bc-range">£1,500–2,000 on a £15–20K budget</div>
-        <div class="bc-bar"><div class="bc-fill" style="width:10%;background:linear-gradient(90deg,#E8A598,#F9E0DC)"></div></div>
-        <div class="bc-note">Always keep 10% unallocated. Something unexpected always happens.</div>
-      </div>
-    </div>
-
-    <div class="example-budgets" style="margin-top:36px">
-      <div class="eb-header">
-        <span>Category</span>
-        <span>%</span>
-        <span>£10K</span>
-        <span>£15K</span>
-        <span>£20K</span>
-      </div>
-      <div class="eb-row">
-        <span class="cat">Venue &amp; Catering</span>
-        <span class="pct">45%</span>
-        <span>£4,500</span>
-        <span>£6,750</span>
-        <span>£9,000</span>
-      </div>
-      <div class="eb-row">
-        <span class="cat">Photography &amp; Video</span>
-        <span class="pct">12%</span>
-        <span>£1,200</span>
-        <span>£1,800</span>
-        <span>£2,400</span>
-      </div>
-      <div class="eb-row">
-        <span class="cat">Flowers &amp; Décor</span>
-        <span class="pct">9%</span>
-        <span>£900</span>
-        <span>£1,350</span>
-        <span>£1,800</span>
-      </div>
-      <div class="eb-row">
-        <span class="cat">Attire &amp; Beauty</span>
-        <span class="pct">10%</span>
-        <span>£1,000</span>
-        <span>£1,500</span>
-        <span>£2,000</span>
-      </div>
-      <div class="eb-row">
-        <span class="cat">Music &amp; Entertainment</span>
-        <span class="pct">7%</span>
-        <span>£700</span>
-        <span>£1,050</span>
-        <span>£1,400</span>
-      </div>
-      <div class="eb-row">
-        <span class="cat">Stationery &amp; Favours</span>
-        <span class="pct">2.5%</span>
-        <span>£250</span>
-        <span>£375</span>
-        <span>£500</span>
-      </div>
-      <div class="eb-row">
-        <span class="cat">Transport</span>
-        <span class="pct">2.5%</span>
-        <span>£250</span>
-        <span>£375</span>
-        <span>£500</span>
-      </div>
-      <div class="eb-row">
-        <span class="cat">Buffer / Misc</span>
-        <span class="pct">10%</span>
-        <span>£1,000</span>
-        <span>£1,500</span>
-        <span>£2,000</span>
-      </div>
-      <div class="eb-row eb-total">
-        <span class="cat">TOTAL</span>
-        <span class="pct">100%</span>
-        <span>£9,800</span>
-        <span>£14,700</span>
-        <span>£19,600</span>
-      </div>
-    </div>
-
-    <p style="text-align:center;margin-top:16px;font-size:0.75rem;color:var(--mid);font-style:italic">
-      Figures shown in GBP as a guide. Use the free template above to enter your own currency and total.
-    </p>
-  </div>
-</section>
-
-<!-- ── VENDOR CHECKLIST ────────────────────────────────── -->
-<section class="vendor-section" id="vendors">
-  <div class="container">
-    <div class="section-label">Vendor Planning</div>
-    <h2 class="section-heading"><em>When to Book</em> Every<br>Wedding Vendor</h2>
-    <p class="section-sub">The most common budgeting mistake is booking vendors out of order and running out of money for the things that matter most.</p>
-
-    <div class="vendor-grid">
-      <!-- 📸 IMAGE INSTRUCTION #3: Replace this div with your photo -->
-      <div class="vendor-image-placeholder" style="padding:0;overflow:hidden;">
-      <img src="product-1.jpg" alt="Wedding planning" style="width:100%;height:100%;object-fit:cover;">
-    </div>
-
-      <div>
-        <div class="booking-timeline">
-          <div class="bt-item">
-            <div class="bt-dot" style="background:#6D3B47">18m</div>
-            <div class="bt-content">
-              <div class="bt-when">12–18 months before</div>
-              <div class="bt-what">Venue, Caterer, Photographer, Videographer — these book up fastest. Secure these first or risk losing your date.</div>
-            </div>
-          </div>
-          <div class="bt-item">
-            <div class="bt-dot" style="background:#B5838D">12m</div>
-            <div class="bt-content">
-              <div class="bt-when">9–12 months before</div>
-              <div class="bt-what">Florist, Band or DJ, Wedding Dress, Hair &amp; Makeup artist, Wedding Cake.</div>
-            </div>
-          </div>
-          <div class="bt-item">
-            <div class="bt-dot" style="background:#7A9E87">9m</div>
-            <div class="bt-content">
-              <div class="bt-when">6–9 months before</div>
-              <div class="bt-what">Officiant, Invitations, Transport, Rehearsal Dinner venue, Hotel room block for guests.</div>
-            </div>
-          </div>
-          <div class="bt-item">
-            <div class="bt-dot" style="background:#C9A84C">3m</div>
-            <div class="bt-content">
-              <div class="bt-when">3–6 months before</div>
-              <div class="bt-what">Favours, Welcome Bags, Bathroom Basket supplies, Emergency Kit, Final dress fittings.</div>
-            </div>
-          </div>
-          <div class="bt-item">
-            <div class="bt-dot" style="background:#9B8BB4">1m</div>
-            <div class="bt-content">
-              <div class="bt-when">4–6 weeks before</div>
-              <div class="bt-what">Seating plan, Final guest count to caterer, Day-of timeline, Confirm all vendors with arrival times.</div>
-            </div>
-          </div>
-        </div>
-        <a href="https://docs.google.com/spreadsheets/d/1mQKIt67i5mKytfcsp8TijeAIMHB-mdENO0q8uGHxBcU/edit?usp=sharing" class="btn btn-outline" style="margin-top:10px" target="_blank">
-          ↓ Download Vendor Checklist
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── TIPS ─────────────────────────────────────────────── -->
-<section class="tips-section" id="tips">
-  <div class="container">
-    <div class="section-label">Money-Saving Advice</div>
-    <h2 class="section-heading">8 Budget Tips That<br><em>Actually Save Money</em></h2>
-    <p class="section-sub">Practical strategies from real wedding planning experience — not generic advice you've already read.</p>
-
-    <div class="tips-grid">
-      <div class="tip-card">
-        <div class="tip-number">01</div>
-        <div class="tip-body">
-          <h3>Set Your Total Before Anything Else</h3>
-          <p>Agree on your maximum spend before looking at a single venue, dress, or florist. Every couple who skips this step overspends by 20–40%.</p>
-        </div>
-      </div>
-      <div class="tip-card">
-        <div class="tip-number">02</div>
-        <div class="tip-body">
-          <h3>Venue Eats Half Your Budget — Plan Accordingly</h3>
-          <p>Lock in your venue cost first, then allocate the rest. Never fall in love with a venue before knowing whether it fits your budget.</p>
-        </div>
-      </div>
-      <div class="tip-card">
-        <div class="tip-number">03</div>
-        <div class="tip-body">
-          <h3>Never Cut Photography</h3>
-          <p>Photos and video are the only things that last forever. Allocate 10–15% here before any other category. You won't regret it.</p>
-        </div>
-      </div>
-      <div class="tip-card">
-        <div class="tip-number">04</div>
-        <div class="tip-body">
-          <h3>Get Three Quotes Per Vendor</h3>
-          <p>Prices vary by 40–60% between vendors for identical quality. Always compare three quotes — this single habit saves couples £1,000–3,000.</p>
-        </div>
-      </div>
-      <div class="tip-card">
-        <div class="tip-number">05</div>
-        <div class="tip-body">
-          <h3>Off-Peak = 20–30% Savings</h3>
-          <p>Friday and Sunday weddings save significantly on venue costs. January, February, and November are typically the cheapest months.</p>
-        </div>
-      </div>
-      <div class="tip-card">
-        <div class="tip-number">06</div>
-        <div class="tip-body">
-          <h3>Buy Welcome Bag Items in Bulk on Amazon</h3>
-          <p>Snacks, water, comfort items — buying in bulk saves 40–60% versus wedding boutiques. A full welcome bag for each guest for £15–20 is achievable.</p>
-        </div>
-      </div>
-      <div class="tip-card">
-        <div class="tip-number">07</div>
-        <div class="tip-body">
-          <h3>Use Canva for Stationery</h3>
-          <p>A professionally designed invitation suite printed locally costs £30–60. The same thing from a stationery studio costs £300–600+.</p>
-        </div>
-      </div>
-      <div class="tip-card">
-        <div class="tip-number">08</div>
-        <div class="tip-body">
-          <h3>Always Keep a 10% Buffer</h3>
-          <p>Leave 10% of your total budget unallocated until your wedding day. Something unexpected always happens — this keeps you calm when it does.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── AMAZON PRODUCTS ─────────────────────────────────── -->
-<section class="products-section" id="products">
-  <div class="container">
-    <div class="section-label">Curated Picks</div>
-    <h2 class="section-heading">Budget-Friendly <em>Wedding Essentials</em><br>on Amazon</h2>
-    <p class="section-sub">The items couples most commonly forget to budget for — found at the best prices.</p>
-
-    <div class="products-grid">
-      <div class="product-card">
-        <!-- 📸 Replace .product-img with product image -->
-        <div class="product-img p1" style="padding:0;overflow:hidden;">
-          <img src="product-1.jpg" alt="Wedding welcome bag supplies" style="width:100%;height:100%;object-fit:cover;">
-        </div>
-        <div class="product-body">
-          <div class="product-label">Guest Experience</div>
-          <h3>Welcome Bag Supplies</h3>
-          <p>Kraft paper bags, tissue paper, sticker labels, and personalised ribbons. Buying in bulk on Amazon saves 40–60% versus wedding boutiques.</p>
-          <a href="https://amzn.to/4shaOue" class="product-link" target="_blank">Shop Welcome Bag Supplies</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <!-- 📸 Replace .product-img with product image -->
-        <div class="product-img p2" style="padding:0;overflow:hidden;">
-          <img src="product-2.jpg" alt="Bathroom basket essentials" style="width:100%;height:100%;object-fit:cover;">
-        </div>
-        <div class="product-body">
-          <div class="product-label">Guest Comfort</div>
-          <h3>Bathroom Basket Essentials</h3>
-          <p>Stain remover wipes, mints, hair ties, pain relief, and safety pins. A full basket for 80–100 guests costs just £50–80 from Amazon.</p>
-          <a href="https://amzn.to/40Ibg8S" class="product-link" target="_blank">Shop Bathroom Basket</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <!-- 📸 Replace .product-img with product image -->
-        <div class="product-img p3" style="padding:0;overflow:hidden;">
-          <img src="product-3.jpg" alt="Wedding emergency kit" style="width:100%;height:100%;object-fit:cover;">
-        </div>
-        <div class="product-body">
-          <div class="product-label">Day-of Essentials</div>
-          <h3>Wedding Emergency Kit</h3>
-          <p>Blister patches, travel dry shampoo, fashion tape, stain remover, and pain relief. Every couple needs one — nobody ever regrets having it.</p>
-          <a href="https://www.amazon.com/Hydrocolloid-Bandages-Blister-Feet-Prevention/dp/B0DRS8QKJS?crid=1S90MLRVLEBVJ&dib=eyJ2IjoiMSJ9.Efhxyt3m8PuSEaRNtI8c_dkNynzVQLD0aA9WgrTqDRbwWY4Xpp-TLi5-AOMcazDcnWQ6-TntQAhryaVDbeB3Gucw12RUw42pI5OmNkD7UTqKn2x2TmyegcLHplVk5T9DgdVx5Dd4k6drb8G0kYeTX_Yitv_xcLLfcILesUvK2QwazSncxVQuKZWdrdtDNJNGpKtZ3lrjWp9eLzNuZl0j5wDxZ141alDaAdDVsMKgHwFlvNzIrbO8TDbdHexJbSTeX42bshhT0GUgpKKOEZvB0tVLBWNAWidVRY4RGJjSMI8.8PJoIO1Pt-NAnUe66OrOoFzN9mibrwKZxeO1-K8_9ys&dib_tag=se&keywords=blister%2Bpatches%2Bfor%2Bheels&qid=1772719472&sprefix=blister%2Bpatches%2Caps%2C221&sr=8-2-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1&linkCode=ll2&tag=vowflowstudio-20&linkId=2b5416fcae3faacab13c2a3f34db9c52&language=en_US&ref_=as_li_ss_tl" class="product-link" target="_blank">Shop Emergency Kit</a>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-img p4">🕯️</div>
-        <div class="product-body">
-          <div class="product-label">Coming Soon</div>
-          <h3>Wedding Favour Ideas Under £2</h3>
-          <p>Mini candles, seed packets, personalised honey jars, and custom keychains — all bulk-available on Amazon for under £2 per guest. Guide coming soon!</p>
-          <span style="display:inline-flex;align-items:center;gap:6px;font-size:0.72rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--rose-mid);border-bottom:1px solid var(--rose-light);padding-bottom:2px;">Guide Coming Soon</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── CTA ──────────────────────────────────────────────── -->
-<section class="cta-section">
-  <div class="container">
-    <h2>Ready to Start Planning<br><em>Your Perfect Budget?</em></h2>
-    <p>Download the free template and start tracking in minutes. No email required.</p>
-    <a href="https://docs.google.com/spreadsheets/d/1mQKIt67i5mKytfcsp8TijeAIMHB-mdENO0q8uGHxBcU/edit?usp=sharing" class="btn btn-gold" target="_blank">
-      ↓ Download Free Budget Template
-    </a>
-  </div>
-</section>
-
-<!-- ── RELATED GUIDES ──────────────────────────────────── -->
-<section class="related-section">
-  <div class="container">
-    <div class="section-label">More Guides</div>
-    <h2 class="section-heading">Keep <em>Planning</em></h2>
-
-    <div class="related-grid">
-      <a class="related-card" href="https://sites.google.com/view/vowflowstudio-welcome-bags/home">
-        <!-- 📸 Replace .related-img with photo -->
-        <div class="related-img rc1" style="padding:0;overflow:hidden;">
-          <img src="related-1.jpg" alt="Wedding welcome bags" style="width:100%;height:100%;object-fit:cover;">
-        </div>
-        <div class="related-body">
-          <div class="label">Guest Experience</div>
-          <h3>Wedding Welcome Bag Guide</h3>
-          <p>Everything to include in your welcome bags, with exact product recommendations and quantities.</p>
-        </div>
-      </a>
-      <a class="related-card" href="https://sites.google.com/view/weddingbathroombasketessential/home">
-        <!-- 📸 Replace .related-img with photo -->
-        <div class="related-img rc2" style="padding:0;overflow:hidden;">
-          <img src="related-2.jpg" alt="Bathroom basket" style="width:100%;height:100%;object-fit:cover;">
-        </div>
-        <div class="related-body">
-          <div class="label">Guest Comfort</div>
-          <h3>Bathroom Basket Essentials</h3>
-          <p>The complete list of what to include in your wedding bathroom basket, from stain remover to pain relief.</p>
-        </div>
-      </a>
-      <a class="related-card" href="https://sites.google.com/view/wedding-day-essentials/home">
-        <!-- 📸 Replace .related-img with photo -->
-        <div class="related-img rc3" style="padding:0;overflow:hidden;">
-          <img src="product-3.jpg" alt="Wedding day essentials" style="width:100%;height:100%;object-fit:cover;">
-        </div>
-        <div class="related-body">
-          <div class="label">Day-of Planning</div>
-          <h3>Wedding Day Essentials</h3>
-          <p>The complete checklist of things couples forget — from emergency kits to timeline reminders.</p>
-        </div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ── FOOTER ───────────────────────────────────────────── -->
+<!-- FOOTER -->
 <footer>
-  <div class="footer-logo">VowFlow Studio</div>
-  <div class="footer-links">
-    <a href="https://sites.google.com/view/vowflow-studio/home">Home</a>
-    <a href="https://sites.google.com/view/wedding-day-essentials/home">Day Essentials</a>
-    <a href="https://sites.google.com/view/vowflowstudio-welcome-bags/home">Welcome Bags</a>
-    <a href="https://sites.google.com/view/weddingbathroombasketessential/home">Bathroom Basket</a>
-  </div>
-  <p class="footer-disclosure">
-    Disclosure: Some links on this page are affiliate links. If you purchase through them, I may earn a small commission at no extra cost to you. This helps keep VowFlow Studio free. Thank you for your support 💛
-  </p>
+  <div class="brand">VowFlow Studio</div>
+  <p>Digital wedding planning tools — made with care for the overwhelmed bride &amp; groom.</p>
+  <p style="margin-top:8px"><a href="https://www.etsy.com/shop/VowFlowStudio" target="_blank">Etsy Shop</a></p>
 </footer>
+
+<script>
+  const categories = [
+    { name: "Venue & Catering",     pct: 45, color: "#c4a882", note: "Lock this in first — it shapes everything else" },
+    { name: "Photography & Video",  pct: 12, color: "#9b7b6a", note: "Never cut this — photos last forever" },
+    { name: "Flowers & Décor",      pct:  9, color: "#b5a898", note: "Very negotiable — greenery is your friend" },
+    { name: "Attire & Beauty",      pct: 10, color: "#a8956e", note: "Dress, suit, hair, makeup & alterations" },
+    { name: "Music & Entertainment",pct:  7, color: "#8a7a6a", note: "DJ is 40–60% cheaper than a live band" },
+    { name: "Stationery & Favours", pct:  3, color: "#c8b99a", note: "Canva + local print can save hundreds" },
+    { name: "Buffer / Miscellaneous",pct:10, color: "#6b8f71", note: "Always keep 10% unallocated — just in case" },
+    { name: "Everything Else",      pct:  4, color: "#9aa8b0", note: "Transport, rings, officiant, gifts…" },
+  ];
+
+  function fmt(val, symbol) {
+    if (!val) return '<span class="amount-placeholder">—</span>';
+    const n = Math.round(val);
+    if (symbol === 'CHF') return 'CHF ' + n.toLocaleString();
+    if (symbol === 'kr')  return n.toLocaleString() + ' kr';
+    return symbol + n.toLocaleString();
+  }
+
+  function recalc() {
+    const total  = parseFloat(document.getElementById('totalBudget').value) || 0;
+    const symbol = document.getElementById('currencySelect').value;
+    const tbody  = document.getElementById('tableBody');
+    let allocated = 0;
+    let rows = '';
+
+    categories.forEach(cat => {
+      const amount = total * cat.pct / 100;
+      allocated += amount;
+      rows += `
+        <tr>
+          <td>
+            <span class="cat-dot" style="background:${cat.color}"></span>
+            <span class="cat-name">${cat.name}</span>
+            <div class="cat-note">${cat.note}</div>
+          </td>
+          <td style="text-align:center; color:var(--mid); font-weight:600">${cat.pct}%</td>
+          <td class="amount-cell">${total ? fmt(amount, symbol) : '<span class="amount-placeholder">—</span>'}</td>
+        </tr>`;
+    });
+
+    tbody.innerHTML = rows;
+    document.getElementById('totalAllocated').innerHTML = total
+      ? fmt(allocated, symbol)
+      : '<span class="amount-placeholder">—</span>';
+  }
+
+  // Init empty table on load
+  recalc();
+</script>
 
 </body>
 </html>
