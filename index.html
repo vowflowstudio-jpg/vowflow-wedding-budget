@@ -16,6 +16,7 @@
       --light:   #f0e9de;
       --border:  #e0d5c5;
       --green:   #4a7c59;
+      --red:     #c0392b;
       --radius:  10px;
     }
 
@@ -100,7 +101,7 @@
 
     /* ── CALCULATOR SECTION ── */
     .calc-section {
-      max-width: 720px;
+      max-width: 760px;
       margin: 56px auto;
       padding: 0 20px;
     }
@@ -164,29 +165,14 @@
       transition: border-color 0.2s;
     }
     .total-input:focus { border-color: var(--taupe); }
-    .calc-btn {
-      height: 44px;
-      padding: 0 22px;
-      background: var(--taupe);
-      color: #fff;
-      border: none;
-      border-radius: var(--radius);
-      font-size: 0.9rem;
-      font-family: -apple-system, sans-serif;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-      white-space: nowrap;
-    }
-    .calc-btn:hover { background: #b5956e; }
-    .calc-btn:active { transform: scale(0.98); }
 
     /* ── TABLE ── */
-    .calc-body { padding: 0; }
+    .calc-body { padding: 0; overflow-x: auto; }
     table {
       width: 100%;
       border-collapse: collapse;
       font-family: -apple-system, sans-serif;
+      min-width: 480px;
     }
     thead th {
       background: var(--dark);
@@ -195,38 +181,76 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       font-weight: 600;
-      padding: 12px 20px;
+      padding: 12px 16px;
       text-align: left;
     }
-    thead th:last-child { text-align: right; }
+    thead th.pct-col { text-align: center; width: 130px; }
+    thead th.amount-col { text-align: right; width: 140px; }
     tbody tr { border-bottom: 1px solid var(--border); }
     tbody tr:last-child { border-bottom: none; }
     tbody tr:hover { background: var(--light); }
     td {
-      padding: 14px 20px;
-      font-size: 0.9rem;
+      padding: 12px 16px;
+      font-size: 0.875rem;
       color: var(--dark);
+      vertical-align: middle;
     }
-    td:last-child { text-align: right; font-weight: 600; }
     .cat-dot {
       display: inline-block;
       width: 8px; height: 8px;
       border-radius: 50%;
       margin-right: 9px;
       vertical-align: middle;
+      flex-shrink: 0;
     }
     .cat-name { font-weight: 500; }
-    .cat-pct {
-      font-size: 0.78rem;
-      color: var(--mid);
-      margin-left: 6px;
-    }
     .cat-note {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--mid);
       margin-top: 2px;
     }
+
+    /* Editable percentage input */
+    .pct-cell { text-align: center; }
+    .pct-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      background: var(--light);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 4px 8px;
+      transition: border-color 0.2s;
+    }
+    .pct-wrap:focus-within { border-color: var(--taupe); background: #fff; }
+    .pct-input {
+      width: 38px;
+      border: none;
+      background: transparent;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--dark);
+      text-align: right;
+      outline: none;
+      font-family: -apple-system, sans-serif;
+    }
+    .pct-sign {
+      font-size: 0.85rem;
+      color: var(--mid);
+      font-weight: 500;
+    }
+    .recommended-tag {
+      display: block;
+      font-size: 0.62rem;
+      color: var(--taupe);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: 3px;
+    }
+
     .amount-cell {
+      text-align: right;
       font-size: 1rem;
       font-weight: 700;
       color: var(--dark);
@@ -234,30 +258,41 @@
     .amount-placeholder {
       color: #bbb;
       font-weight: 400;
+      font-size: 0.875rem;
     }
 
     /* totals row */
     .total-row td {
       background: var(--light);
       font-weight: 700;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       border-top: 2px solid var(--border);
+      padding: 14px 16px;
     }
-    .total-row td:last-child { font-size: 1.05rem; color: var(--green); }
+    .total-row .pct-cell {
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .total-row .amount-cell { font-size: 1.05rem; }
+    .pct-ok { color: var(--green); }
+    .pct-over { color: var(--red); }
 
-    .calc-footer {
-      padding: 16px 24px;
+    .calc-hint {
+      padding: 14px 20px;
       background: #fdfcfa;
       border-top: 1px solid var(--border);
-      text-align: center;
       font-size: 0.78rem;
       color: var(--mid);
       font-family: -apple-system, sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
+    .calc-hint .hint-icon { font-size: 0.9rem; }
 
     /* ── UPGRADE BANNER ── */
     .upgrade-section {
-      max-width: 720px;
+      max-width: 760px;
       margin: 0 auto 56px;
       padding: 0 20px;
     }
@@ -365,7 +400,7 @@
 
     /* ── COMPARISON TABLE ── */
     .compare-section {
-      max-width: 720px;
+      max-width: 760px;
       margin: 0 auto 64px;
       padding: 0 20px;
     }
@@ -417,12 +452,12 @@
     footer a { color: var(--taupe); text-decoration: none; }
     footer .brand { font-size: 0.9rem; color: rgba(255,255,255,0.8); font-weight: 600; margin-bottom: 6px; }
 
-    @media (max-width: 540px) {
+    @media (max-width: 580px) {
       .upgrade-card { padding: 28px 20px; }
       .features-grid { grid-template-columns: 1fr; }
       nav { padding: 0 16px; }
       .nav-links { gap: 12px; }
-      thead th, td { padding: 10px 14px; }
+      td { padding: 10px 12px; }
       .calc-header { padding: 20px 16px 18px; }
     }
   </style>
@@ -441,11 +476,11 @@
 <section class="hero">
   <span class="hero-eyebrow">Free Tool — No Sign-Up</span>
   <h1>Wedding Budget <span>Calculator</span></h1>
-  <p>Enter your total budget and instantly see how much to allocate to each category. Simple, free, no frills.</p>
+  <p>Enter your total budget, adjust the percentages to match your priorities, and instantly see how much to allocate to each category.</p>
   <div class="pill-row">
     <span class="pill">Works in any browser</span>
+    <span class="pill">Editable percentages</span>
     <span class="pill">No sign-up needed</span>
-    <span class="pill">5 currencies</span>
   </div>
 </section>
 
@@ -454,7 +489,7 @@
   <div class="calc-card">
     <div class="calc-header">
       <h2>Your Budget Breakdown</h2>
-      <p>Enter your total wedding budget below. Suggested amounts update instantly.</p>
+      <p>Enter your total budget, then adjust the % for each category to match your priorities. Amounts update instantly.</p>
       <div class="budget-input-row">
         <select class="currency-select" id="currencySelect" onchange="recalc()">
           <option value="£">£ GBP</option>
@@ -472,7 +507,6 @@
           step="500"
           oninput="recalc()"
         />
-        <button class="calc-btn" onclick="recalc()">Calculate</button>
       </div>
     </div>
 
@@ -481,8 +515,8 @@
         <thead>
           <tr>
             <th>Category</th>
-            <th style="text-align:center">% of Budget</th>
-            <th>Suggested Amount</th>
+            <th class="pct-col">Your %</th>
+            <th class="amount-col">Amount</th>
           </tr>
         </thead>
         <tbody id="tableBody">
@@ -490,14 +524,16 @@
         </tbody>
         <tfoot>
           <tr class="total-row">
-            <td colspan="2"><strong>Total Allocated</strong></td>
-            <td id="totalAllocated" class="amount-cell amount-placeholder">—</td>
+            <td><strong>Total</strong></td>
+            <td class="pct-cell"><span id="totalPct" class="pct-ok">0%</span></td>
+            <td id="totalAllocated" class="amount-cell"><span class="amount-placeholder">—</span></td>
           </tr>
         </tfoot>
       </table>
     </div>
-    <div class="calc-footer">
-      Percentages are typical guidelines — every wedding is different. Adjust based on your priorities.
+    <div class="calc-hint">
+      <span class="hint-icon">💡</span>
+      <span>Percentages shown are typical guidelines. Edit any value — the amounts update instantly. Aim for a total of 100%.</span>
     </div>
   </div>
 </section>
@@ -547,8 +583,8 @@
       <tbody>
         <tr>
           <td>Budget split by category</td>
-          <td class="free-col" style="text-align:center"><span class="check">✓</span> Basic</td>
-          <td class="paid-col" style="text-align:center"><span class="check">✓</span> Full + editable</td>
+          <td class="free-col" style="text-align:center"><span class="check">✓</span> Basic calculator</td>
+          <td class="paid-col" style="text-align:center"><span class="check">✓</span> Full + editable file</td>
         </tr>
         <tr>
           <td>Colour-coded categories</td>
@@ -599,53 +635,81 @@
 
 <script>
   const categories = [
-    { name: "Venue & Catering",     pct: 45, color: "#c4a882", note: "Lock this in first — it shapes everything else" },
-    { name: "Photography & Video",  pct: 12, color: "#9b7b6a", note: "Never cut this — photos last forever" },
-    { name: "Flowers & Décor",      pct:  9, color: "#b5a898", note: "Very negotiable — greenery is your friend" },
-    { name: "Attire & Beauty",      pct: 10, color: "#a8956e", note: "Dress, suit, hair, makeup & alterations" },
-    { name: "Music & Entertainment",pct:  7, color: "#8a7a6a", note: "DJ is 40–60% cheaper than a live band" },
-    { name: "Stationery & Favours", pct:  3, color: "#c8b99a", note: "Canva + local print can save hundreds" },
-    { name: "Buffer / Miscellaneous",pct:10, color: "#6b8f71", note: "Always keep 10% unallocated — just in case" },
-    { name: "Everything Else",      pct:  4, color: "#9aa8b0", note: "Transport, rings, officiant, gifts…" },
+    { name: "Venue & Catering",      defaultPct: 45, color: "#c4a882", note: "Lock this in first — it shapes everything else" },
+    { name: "Photography & Video",   defaultPct: 12, color: "#9b7b6a", note: "Never cut this — photos last forever" },
+    { name: "Flowers & Décor",       defaultPct:  9, color: "#b5a898", note: "Very negotiable — greenery is your friend" },
+    { name: "Attire & Beauty",       defaultPct: 10, color: "#a8956e", note: "Dress, suit, hair, makeup & alterations" },
+    { name: "Music & Entertainment", defaultPct:  7, color: "#8a7a6a", note: "DJ is 40–60% cheaper than a live band" },
+    { name: "Stationery & Favours",  defaultPct:  3, color: "#c8b99a", note: "Canva + local print can save hundreds" },
+    { name: "Buffer / Miscellaneous",defaultPct: 10, color: "#6b8f71", note: "Always keep ~10% for the unexpected" },
+    { name: "Everything Else",       defaultPct:  4, color: "#9aa8b0", note: "Transport, rings, officiant, gifts…" },
   ];
 
   function fmt(val, symbol) {
-    if (!val) return '<span class="amount-placeholder">—</span>';
+    if (!val && val !== 0) return '<span class="amount-placeholder">—</span>';
     const n = Math.round(val);
     if (symbol === 'CHF') return 'CHF ' + n.toLocaleString();
     if (symbol === 'kr')  return n.toLocaleString() + ' kr';
     return symbol + n.toLocaleString();
   }
 
+  function buildTable() {
+    const tbody = document.getElementById('tableBody');
+    tbody.innerHTML = categories.map((cat, i) => `
+      <tr>
+        <td>
+          <span class="cat-dot" style="background:${cat.color}"></span>
+          <span class="cat-name">${cat.name}</span>
+          <div class="cat-note">${cat.note}</div>
+        </td>
+        <td class="pct-cell">
+          <div class="pct-wrap">
+            <input
+              class="pct-input"
+              id="pct_${i}"
+              type="number"
+              min="0"
+              max="100"
+              step="1"
+              value="${cat.defaultPct}"
+              oninput="recalc()"
+            />
+            <span class="pct-sign">%</span>
+          </div>
+          <span class="recommended-tag">recommended</span>
+        </td>
+        <td id="amt_${i}" class="amount-cell"><span class="amount-placeholder">—</span></td>
+      </tr>`).join('');
+  }
+
   function recalc() {
     const total  = parseFloat(document.getElementById('totalBudget').value) || 0;
     const symbol = document.getElementById('currencySelect').value;
-    const tbody  = document.getElementById('tableBody');
-    let allocated = 0;
-    let rows = '';
+    let totalPct = 0;
+    let totalAmt = 0;
 
-    categories.forEach(cat => {
-      const amount = total * cat.pct / 100;
-      allocated += amount;
-      rows += `
-        <tr>
-          <td>
-            <span class="cat-dot" style="background:${cat.color}"></span>
-            <span class="cat-name">${cat.name}</span>
-            <div class="cat-note">${cat.note}</div>
-          </td>
-          <td style="text-align:center; color:var(--mid); font-weight:600">${cat.pct}%</td>
-          <td class="amount-cell">${total ? fmt(amount, symbol) : '<span class="amount-placeholder">—</span>'}</td>
-        </tr>`;
+    categories.forEach((cat, i) => {
+      const pctInput = document.getElementById('pct_' + i);
+      const pct = parseFloat(pctInput?.value) || 0;
+      totalPct += pct;
+      const amount = total * pct / 100;
+      totalAmt += amount;
+      const cell = document.getElementById('amt_' + i);
+      if (cell) cell.innerHTML = total ? fmt(amount, symbol) : '<span class="amount-placeholder">—</span>';
     });
 
-    tbody.innerHTML = rows;
-    document.getElementById('totalAllocated').innerHTML = total
-      ? fmt(allocated, symbol)
-      : '<span class="amount-placeholder">—</span>';
+    // Update totals
+    const pctEl = document.getElementById('totalPct');
+    const rounded = Math.round(totalPct * 10) / 10;
+    pctEl.textContent = rounded + '%';
+    pctEl.className = rounded <= 100 ? 'pct-ok' : 'pct-over';
+
+    document.getElementById('totalAllocated').innerHTML =
+      total ? fmt(totalAmt, symbol) : '<span class="amount-placeholder">—</span>';
   }
 
-  // Init empty table on load
+  // Init
+  buildTable();
   recalc();
 </script>
 
